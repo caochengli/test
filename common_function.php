@@ -15,6 +15,7 @@
  */
 function get_rand($proArr)
 {
+<<<<<<< HEAD
     $result = '';
 
     //概率数组的总概率精度
@@ -38,6 +39,31 @@ function get_rand($proArr)
 
     unset ($proArr);
     return $result;
+=======
+	$result = '';
+
+	//概率数组的总概率精度
+	$proSum = array_sum($proArr);
+
+	//概率数组循环
+	foreach ($proArr as $key => $proCur)
+	{
+		$randNum = mt_rand(1, $proSum);
+
+		if ($randNum <= $proCur)
+		{
+			$result = $key;
+			break;
+		}
+		else
+		{
+			$proSum -= $proCur;
+		}
+	}
+
+	unset ($proArr);
+	return $result;
+>>>>>>> bdad6c66d400db07417ec1efb36edd2f55e4b8a7
 }
 
 // 格式化资产
@@ -473,7 +499,11 @@ function http($url, $method = 'GET', $postfields = null, $headers = array(), $ht
 
 /**
  * 权重算法
+<<<<<<< HEAD
  */
+=======
+*/
+>>>>>>> bdad6c66d400db07417ec1efb36edd2f55e4b8a7
 function countWeight($data)
 {
     $weight = 0;
@@ -490,5 +520,29 @@ function countWeight($data)
     $int = mt_rand(0, $weight-1);//获取一个随机数
     $result = $temp[$int];
     return $result;
+}
+
+// 二维数组按某个字段排序
+function array_sort($array, $field, $direction = 'SORT_DESC')
+{
+    if (!$field || !in_array($direction, ['SORT_DESC', 'SORT_ASC']))
+    {
+        return $array;
+    }
+    $sort = array(
+        'direction' => $direction, //排序顺序标志 SORT_DESC 降序；SORT_ASC 升序
+        'field'     => $field,       //排序字段
+    );
+    $arrSort = array();
+    foreach($array AS $uniqid => $row) {
+        foreach($row AS $key=>$value) {
+            $arrSort[$key][$uniqid] = $value;
+        }
+    }
+    if($sort['direction']) {
+        array_multisort($arrSort[$sort['field']], constant($sort['direction']), $array);
+    }
+
+    return $array;
 }
 
