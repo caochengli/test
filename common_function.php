@@ -1,46 +1,46 @@
 <?php
 /**
- * ¾­µäµÄ¸ÅÂÊËã·¨£¬
+ * ç»å…¸çš„æ¦‚ç‡ç®—æ³•ï¼Œ
  *
- * $proArrÊÇÒ»¸öÔ¤ÏÈÉèÖÃµÄÊı×é£¬
- * ¼ÙÉèÊı×éÎª£ºarray(100,200,300£¬400)£¬
- * ¿ªÊ¼ÊÇ´Ó1,1000 Õâ¸ö¸ÅÂÊ·¶Î§ÄÚÉ¸Ñ¡µÚÒ»¸öÊıÊÇ·ñÔÚËûµÄ³öÏÖ¸ÅÂÊ·¶Î§Ö®ÄÚ£¬
- * Èç¹û²»ÔÚ£¬Ôò½«¸ÅÂÊ¿Õ¼ä£¬Ò²¾ÍÊÇkµÄÖµ¼õÈ¥¸Õ¸ÕµÄÄÇ¸öÊı×ÖµÄ¸ÅÂÊ¿Õ¼ä£¬
- * ÔÚ±¾Àıµ±ÖĞ¾ÍÊÇ¼õÈ¥100£¬Ò²¾ÍÊÇËµµÚ¶ş¸öÊıÊÇÔÚ1£¬900Õâ¸ö·¶Î§ÄÚÉ¸Ñ¡µÄ¡£
- * ÕâÑù É¸Ñ¡µ½×îÖÕ£¬×Ü»áÓĞÒ»¸öÊıÂú×ãÒªÇó¡£
- * ¾ÍÏàµ±ÓÚÈ¥Ò»¸öÏä×ÓÀïÃş¶«Î÷£¬
- * µÚÒ»¸ö²»ÊÇ£¬µÚ¶ş¸ö²»ÊÇ£¬µÚÈı¸ö»¹²»ÊÇ£¬ÄÇ×îºóÒ»¸öÒ»¶¨ÊÇ¡£
- * Õâ¸öËã·¨¼òµ¥£¬¶øÇÒĞ§ÂÊ·Ç³£ ¸ß£¬
- * ¹Ø¼üÊÇÕâ¸öËã·¨ÒÑÔÚÎÒÃÇÒÔÇ°µÄÏîÄ¿ÖĞÓĞÓ¦ÓÃ£¬ÓÈÆäÊÇ´óÊı¾İÁ¿µÄÏîÄ¿ÖĞĞ§ÂÊ·Ç³£°ô¡£
+ * $proArræ˜¯ä¸€ä¸ªé¢„å…ˆè®¾ç½®çš„æ•°ç»„ï¼Œ
+ * å‡è®¾æ•°ç»„ä¸ºï¼šarray(100,200,300ï¼Œ400)ï¼Œ
+ * å¼€å§‹æ˜¯ä»1,1000 è¿™ä¸ªæ¦‚ç‡èŒƒå›´å†…ç­›é€‰ç¬¬ä¸€ä¸ªæ•°æ˜¯å¦åœ¨ä»–çš„å‡ºç°æ¦‚ç‡èŒƒå›´ä¹‹å†…ï¼Œ
+ * å¦‚æœä¸åœ¨ï¼Œåˆ™å°†æ¦‚ç‡ç©ºé—´ï¼Œä¹Ÿå°±æ˜¯kçš„å€¼å‡å»åˆšåˆšçš„é‚£ä¸ªæ•°å­—çš„æ¦‚ç‡ç©ºé—´ï¼Œ
+ * åœ¨æœ¬ä¾‹å½“ä¸­å°±æ˜¯å‡å»100ï¼Œä¹Ÿå°±æ˜¯è¯´ç¬¬äºŒä¸ªæ•°æ˜¯åœ¨1ï¼Œ900è¿™ä¸ªèŒƒå›´å†…ç­›é€‰çš„ã€‚
+ * è¿™æ · ç­›é€‰åˆ°æœ€ç»ˆï¼Œæ€»ä¼šæœ‰ä¸€ä¸ªæ•°æ»¡è¶³è¦æ±‚ã€‚
+ * å°±ç›¸å½“äºå»ä¸€ä¸ªç®±å­é‡Œæ‘¸ä¸œè¥¿ï¼Œ
+ * ç¬¬ä¸€ä¸ªä¸æ˜¯ï¼Œç¬¬äºŒä¸ªä¸æ˜¯ï¼Œç¬¬ä¸‰ä¸ªè¿˜ä¸æ˜¯ï¼Œé‚£æœ€åä¸€ä¸ªä¸€å®šæ˜¯ã€‚
+ * è¿™ä¸ªç®—æ³•ç®€å•ï¼Œè€Œä¸”æ•ˆç‡éå¸¸ é«˜ï¼Œ
+ * å…³é”®æ˜¯è¿™ä¸ªç®—æ³•å·²åœ¨æˆ‘ä»¬ä»¥å‰çš„é¡¹ç›®ä¸­æœ‰åº”ç”¨ï¼Œå°¤å…¶æ˜¯å¤§æ•°æ®é‡çš„é¡¹ç›®ä¸­æ•ˆç‡éå¸¸æ£’ã€‚
  */
 function get_rand($proArr)
 {
-	$result = '';
+    $result = '';
 
-	//¸ÅÂÊÊı×éµÄ×Ü¸ÅÂÊ¾«¶È
-	$proSum = array_sum($proArr);
+    //æ¦‚ç‡æ•°ç»„çš„æ€»æ¦‚ç‡ç²¾åº¦
+    $proSum = array_sum($proArr);
 
-	//¸ÅÂÊÊı×éÑ­»·
-	foreach ($proArr as $key => $proCur)
-	{
-		$randNum = mt_rand(1, $proSum);
+    //æ¦‚ç‡æ•°ç»„å¾ªç¯
+    foreach ($proArr as $key => $proCur)
+    {
+        $randNum = mt_rand(1, $proSum);
 
-		if ($randNum <= $proCur)
-		{
-			$result = $key;
-			break;
-		}
-		else
-		{
-			$proSum -= $proCur;
-		}
-	}
+        if ($randNum <= $proCur)
+        {
+            $result = $key;
+            break;
+        }
+        else
+        {
+            $proSum -= $proCur;
+        }
+    }
 
-	unset ($proArr);
-	return $result;
+    unset ($proArr);
+    return $result;
 }
 
-// ¸ñÊ½»¯×Ê²ú
+// æ ¼å¼åŒ–èµ„äº§
 function handleMoney($money, $num=4, $func='')
 {
     $code = pow(10, $num);
@@ -64,7 +64,7 @@ function handleMoney($money, $num=4, $func='')
     return $money;
 }
 
-// Êı¾İ¸ñÊ½´¦Àí
+// æ•°æ®æ ¼å¼å¤„ç†
 function smath($a, $b, $math='+', $num=4, $func='floor')
 {
     $code = pow(10, $num);
@@ -93,7 +93,7 @@ function smath($a, $b, $math='+', $num=4, $func='floor')
     return handleMoney($re, $num, $func);
 }
 
-/* ÕıÔòÆ¥Åä */
+/* æ­£åˆ™åŒ¹é… */
 function regMobile($mobile)
 {
     return preg_match('/1[\d]{10}/', $mobile);
@@ -103,7 +103,7 @@ function regEmail($email)
     return preg_match('/\w[\w\-\.]+\@\w[\w\-]+\.\w[\w\-]+/Ui', $email);
 }
 
-/* ±íµ¥ÑéÖ¤ */
+/* è¡¨å•éªŒè¯ */
 function formHash($new=0)
 {
     if ($new == 1)
@@ -133,7 +133,7 @@ function utf82gbk($str)
     return sencode($str, 'utf-8', 'gbk');
 }
 
-// ×ª»»±àÂë
+// è½¬æ¢ç¼–ç 
 function sencode($str, $from, $to)
 {
     $str = is_array($str) ? $str : array($str);
@@ -168,7 +168,7 @@ function getClientIP()
     return $ip;
 }
 
-/* SQL ADDSLASHES ²ÎÊı¿ÉÒÔÊÇ×Ö·û´®»òÕßÊı×é */
+/* SQL ADDSLASHES å‚æ•°å¯ä»¥æ˜¯å­—ç¬¦ä¸²æˆ–è€…æ•°ç»„ */
 function saddslashes($string)
 {
     if (is_array($string))
@@ -194,12 +194,12 @@ function conn($db='db')
 }
 
 /*
-    ·µ»ØËæ»ú×Ö·û´®»òÕßÊı×é
+    è¿”å›éšæœºå­—ç¬¦ä¸²æˆ–è€…æ•°ç»„
     Params:
-        $count: ·µ»Ø¸öÊı
-        $addchars: Ôö¼ÓÆäËûËæ»ú×Ö·û
-        $arrayout: ÊÇ·ñÊı×éÊä³ö
-        $unique: ÊÇ·ñÔÊĞíÖØ¸´
+        $count: è¿”å›ä¸ªæ•°
+        $addchars: å¢åŠ å…¶ä»–éšæœºå­—ç¬¦
+        $arrayout: æ˜¯å¦æ•°ç»„è¾“å‡º
+        $unique: æ˜¯å¦å…è®¸é‡å¤
 */
 function srandsalt($count=6, $addchars='', $arrayout=0, $unique=0)
 {
@@ -232,7 +232,7 @@ function srandsalt($count=6, $addchars='', $arrayout=0, $unique=0)
     }
 }
 
-/* Éú³ÉËõÂÔÍ¼ */
+/* ç”Ÿæˆç¼©ç•¥å›¾ */
 function imageResize($srcFile, $toW, $toH, $toFile="")
 {
     $toFile = $toFile ? $toFile : $srcFile;
@@ -266,10 +266,10 @@ function imageResize($srcFile, $toW, $toH, $toFile="")
 
     $srcW=ImageSX($im);
     $srcH=ImageSY($im);
-    $toWH=$toW/$toH;   // Ëõ·Åºó
+    $toWH=$toW/$toH;   // ç¼©æ”¾å
     $srcWH=$srcW/$srcH;
 
-    if($toWH<=$srcWH)  // ±ÈÂÊ
+    if($toWH<=$srcWH)  // æ¯”ç‡
     {
         $ftoW=$toW;
         $ftoH=$ftoW*($srcH/$srcW);
@@ -320,20 +320,20 @@ function imageResize($srcFile, $toW, $toH, $toFile="")
 }
 
 /**
- * ¼ÓÃÜºÍ½âÃÜº¯Êı
+ * åŠ å¯†å’Œè§£å¯†å‡½æ•°
  *
  * <code>
- * // ¼ÓÃÜÓÃ»§IDºÍÓÃ»§Ãû
+ * // åŠ å¯†ç”¨æˆ·IDå’Œç”¨æˆ·å
  * $auth = authcode("{$uid}\t{$username}", 'ENCODE');
- * // ½âÃÜÓÃ»§IDºÍÓÃ»§Ãû
+ * // è§£å¯†ç”¨æˆ·IDå’Œç”¨æˆ·å
  * list($uid, $username) = explode("\t", authcode($auth, 'DECODE'));
  * </code>
  *
  * @access public
- * @param  string  $string    ĞèÒª¼ÓÃÜ»ò½âÃÜµÄ×Ö·û´®
- * @param  string  $operation Ä¬ÈÏÊÇDECODE¼´½âÃÜ ENCODEÊÇ¼ÓÃÜ
- * @param  string  $key       ¼ÓÃÜ»ò½âÃÜµÄÃÜÔ¿ ²ÎÊıÎª¿ÕµÄÇé¿öÏÂÈ¡È«¾ÖÅäÖÃencryption_key
- * @param  integer $expiry    ¼ÓÃÜµÄÓĞĞ§ÆÚ(Ãë)0ÊÇÓÀ¾ÃÓĞĞ§ ×¢ÒâÕâ¸ö²ÎÊı²»ĞèÒª´«Ê±¼ä´Á
+ * @param  string  $string    éœ€è¦åŠ å¯†æˆ–è§£å¯†çš„å­—ç¬¦ä¸²
+ * @param  string  $operation é»˜è®¤æ˜¯DECODEå³è§£å¯† ENCODEæ˜¯åŠ å¯†
+ * @param  string  $key       åŠ å¯†æˆ–è§£å¯†çš„å¯†é’¥ å‚æ•°ä¸ºç©ºçš„æƒ…å†µä¸‹å–å…¨å±€é…ç½®encryption_key
+ * @param  integer $expiry    åŠ å¯†çš„æœ‰æ•ˆæœŸ(ç§’)0æ˜¯æ°¸ä¹…æœ‰æ•ˆ æ³¨æ„è¿™ä¸ªå‚æ•°ä¸éœ€è¦ä¼ æ—¶é—´æˆ³
  * @return string
  */
 function authcode($string, $operation = 'DECODE', $key = '', $expiry = 0) {
@@ -394,11 +394,11 @@ function authcode($string, $operation = 'DECODE', $key = '', $expiry = 0) {
 }
 
 /**
- * ¶şÎ¬Êı×éÅÅĞò °´ÕÕÖ¸¶¨µÄkey ¶ÔÊı×é½øĞĞÅÅĞò
+ * äºŒç»´æ•°ç»„æ’åº æŒ‰ç…§æŒ‡å®šçš„key å¯¹æ•°ç»„è¿›è¡Œæ’åº
  *
- * @param array $arr ½«ÒªÅÅĞòµÄÊı×é
- * @param string $keys Ö¸¶¨ÅÅĞòµÄkey
- * @param string $type ÅÅĞòÀàĞÍ asc | desc
+ * @param array $arr å°†è¦æ’åºçš„æ•°ç»„
+ * @param string $keys æŒ‡å®šæ’åºçš„key
+ * @param string $type æ’åºç±»å‹ asc | desc
  *
  * @return array
  */
@@ -422,7 +422,7 @@ function arraySort($arr, $keys, $type = 'asc')
 }
 
 /**
- * curlÇëÇó
+ * curlè¯·æ±‚
  */
 function http($url, $method = 'GET', $postfields = null, $headers = array(), $https = false)
 {
@@ -459,19 +459,21 @@ function http($url, $method = 'GET', $postfields = null, $headers = array(), $ht
 
     $response = curl_exec($ci);
     $http_code = curl_getinfo($ci, CURLINFO_HTTP_CODE);
-    curl_close($ci);
+
 
     if ($http_code != 200)
     {
         return array($http_code, 'Curl error: ' . curl_error($ci));
     }
 
+    curl_close($ci);
+
     return array($http_code, $response);
 }
 
 /**
- * È¨ÖØËã·¨
-*/
+ * æƒé‡ç®—æ³•
+ */
 function countWeight($data)
 {
     $weight = 0;
@@ -481,11 +483,11 @@ function countWeight($data)
         $weight += $v['weight'];
         for($i=0; $i<$v['weight']; $i++)
         {
-            $temp[] = $v;//·Å´óÊı×é
+            $temp[] = $v;//æ”¾å¤§æ•°ç»„
         }
     }
 
-    $int = mt_rand(0, $weight-1);//»ñÈ¡Ò»¸öËæ»úÊı
+    $int = mt_rand(0, $weight-1);//è·å–ä¸€ä¸ªéšæœºæ•°
     $result = $temp[$int];
     return $result;
 }
