@@ -18,4 +18,10 @@ function add(int $a, int $b): int {
 }
 
 echo add(1, 2);
-echo add(1.5, 2.6);
+//echo add(1.5, 2.6); // php7会报错
+
+/**
+ * 2.set_exception_handler() 不再保证收到的一定是 Exception 对象
+ *
+ *  在 PHP 7 中，很多致命错误以及可恢复的致命错误，都被转换为异常来处理了。 这些异常继承自 Error 类，此类实现了 Throwable 接口 （所有异常都实现了这个基础接口）。
+*/

@@ -15,7 +15,6 @@
  */
 function get_rand($proArr)
 {
-<<<<<<< HEAD
     $result = '';
 
     //概率数组的总概率精度
@@ -39,31 +38,7 @@ function get_rand($proArr)
 
     unset ($proArr);
     return $result;
-=======
-	$result = '';
 
-	//概率数组的总概率精度
-	$proSum = array_sum($proArr);
-
-	//概率数组循环
-	foreach ($proArr as $key => $proCur)
-	{
-		$randNum = mt_rand(1, $proSum);
-
-		if ($randNum <= $proCur)
-		{
-			$result = $key;
-			break;
-		}
-		else
-		{
-			$proSum -= $proCur;
-		}
-	}
-
-	unset ($proArr);
-	return $result;
->>>>>>> bdad6c66d400db07417ec1efb36edd2f55e4b8a7
 }
 
 // 格式化资产
@@ -499,11 +474,7 @@ function http($url, $method = 'GET', $postfields = null, $headers = array(), $ht
 
 /**
  * 权重算法
-<<<<<<< HEAD
  */
-=======
-*/
->>>>>>> bdad6c66d400db07417ec1efb36edd2f55e4b8a7
 function countWeight($data)
 {
     $weight = 0;
