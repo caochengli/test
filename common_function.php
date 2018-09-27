@@ -99,9 +99,57 @@ function regMobile($mobile)
 {
     return preg_match('/1[\d]{10}/', $mobile);
 }
+
+/**
+ * 正则匹配邮箱
+*/
 function regEmail($email)
 {
     return preg_match('/\w[\w\-\.]+\@\w[\w\-]+\.\w[\w\-]+/Ui', $email);
+}
+
+/**
+ * 正则匹配身份证号
+ */
+function regIdcard($idcard)
+{
+    return preg_match('/(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X)$)/', $idcard);
+}
+
+/**
+ * 根据身份证号获取出生年月日(7-14位为生日)
+ */
+function getBirthByIdcard($idcard)
+{
+    $birth = ['birthyear' => 0, 'birthmonth' => 0, 'birthday' => 0];
+    if (!regIdcard($idcard)) {
+        return $birth;
+    }
+
+    $birth['birthyear'] = substr($idcard, 6, 4);
+    $birth['birthmonth'] = substr($idcard, 10, 2);
+    $birth['birthday'] = substr($idcard, 12, 2);
+
+    // 月、日去掉前导0
+    $birth['birthmonth'] = ltrim($birth['birthmonth'], '0');
+    $birth['birthday'] = ltrim($birth['birthday'], '0');
+    return $birth;
+}
+
+/**
+ * 根据身份证号获取性别(17位为性别,奇数为男,偶数为女)
+ *
+ * 返回：0未知 1男 2女
+ */
+function getSexByIdcard($idcard)
+{
+    $sex = 0;
+    if (!regIdcard($idcard)) {
+        return $sex;
+    }
+    $judge = substr($idcard, 16, 1);
+    $sex = $judge%2 == 0 ? 2 : 1;
+    return $sex;
 }
 
 /* 表单验证 */
@@ -590,4 +638,68 @@ function get_rand_new($prizeArr)
 
     return $result;
 }
+
+// 根据时差显示时间
+function getDateTime($timestamp = 0, $timediff = 0, $format = 'j M Y H:i')
+{
+    $newTimestamp = $timestamp+($timediff*3600);
+    return date($format, $newTimestamp);
+}
+
+// 对象转数组
+function object_to_array($obj) {
+    $obj = (array)$obj;
+    foreach ($obj as $k => $v) {
+        if (gettype($v) == 'resource') {
+            return;
+        }
+        if (gettype($v) == 'object' || gettype($v) == 'array') {
+            $obj[$k] = (array)object_to_array($v);
+        }
+    }
+
+    return $obj;
+}
+
+/**
+ * 将二维数组按某个键值重组数组
+ */
+function array_bulid($data, $key)
+{
+    $return = [];
+    if (!is_array($data) || !$data) {
+        return $return;
+    }
+    foreach ($data as $k => $r) {
+        $return[$r[$key]][] = $r;
+    }
+    return $return;
+}
+
+/**
+ * 时间差格式化
+ * @param $time1
+ * @param $time2
+ * @return array
+ */
+function getTimeDiff($time1, $time2)
+{
+    $return = [
+        'day' => 0,
+        'hour' => 0,
+        'minutes' => 0,
+        'seconds' => 0,
+    ];
+    $diff = $time1 - $time2;
+    if($diff <= 0)
+        return $return;
+
+    $return['day'] = floor($diff/86400);
+    $return['hour'] = str_pad(floor($diff%86400/3600), 2, 0, STR_PAD_LEFT);
+    $return['minutes'] = str_pad(floor($diff%86400%3600/60), 2, 0, STR_PAD_LEFT);
+    $return['seconds'] = str_pad(floor($diff%86400%3600%60), 2, 0, STR_PAD_LEFT);
+    return $return;
+}
+
+
 
