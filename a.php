@@ -1,5 +1,14 @@
 <?php
 include 'common_function.php';
+
+//$proArr = array(0 => 1);
+//$proArr = array( 1 => 0.01, 2 => 0.05, 3 => 0.00090, 7 => 50);
+//$proArr = array(1 => 0.01, 2 => 0.05, 3 => 0.00090);
+$proArr = array(1 => 1, 2 => 2, 3 => 3, 4 => 4, 5 => 90);
+$m = get_rand_new($proArr);
+echo $m;exit;
+
+
 $arrUsers = array(
     array(
         'id'   => 1,

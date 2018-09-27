@@ -551,3 +551,43 @@ function force_download($filename = '', $data = '')
     exit($data);
 }
 
+/**
+ * 经典的概率算法2，兼容概率为小数，小于1的情况
+ *
+ * $proArr为预设数组
+ */
+function get_rand_new($prizeArr)
+{
+    $minPrize = min($prizeArr);
+    $len = 0;
+    if ($index = strpos($minPrize, '.') !== false)
+    {
+        $len = strlen(substr($minPrize, $index, -1));
+    }
+    $len += 2;
+    $basenum = pow(10, $len);
+
+    $min = 1;
+    foreach ($prizeArr as $key => $value)
+    {
+        $max = $min + ($basenum * $value / 100) - 1;
+        $prizeArr[$key] = array($min, $max);
+
+        $min = $max + 1;
+    }
+
+    $randNum = rand(1, $basenum);
+    $result = 0;
+
+    foreach ($prizeArr as $key => $value)
+    {
+        if ($randNum >= $value[0] && $randNum <= $value[1])
+        {
+            $result = $key;
+            break;
+        }
+    }
+
+    return $result;
+}
+
