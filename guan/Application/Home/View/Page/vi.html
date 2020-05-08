@@ -1,0 +1,129 @@
+<extend name="./Public/home/index.html"/>
+<block name="onecss">
+    <link href="__PUBLIC__/home/css/service.css" rel="stylesheet" type="text/css">
+</block>
+<block name="main">
+    <include file="Public/banner" />
+    <section class="applets-box">
+        <article class="container-box">
+            <div class="list clearfix">
+                <aside class="item pull-left trans he400">
+                    <div class="cont">
+                        <div class="icon">&#xe608;</div>
+                        <div class="tit">VIS设计</div>
+                        <div class="com">品牌识别时企业希望创造和保持的，能打动消费者并区别于竞争者的品牌联想，与品牌核心价值共同构成丰满的品牌联想。派点设计的VIS设计价值在于策略与视野指引品牌的设计，这意味着品牌拥有高度的战略匹配、专属以及创新。<br/><br/>品牌LOGO设计<br/>基础部分设计<br/>基础部分设计<br/>品牌识别系统汇报会议</div>
+                    </div>
+                </aside>
+                <aside class="item pull-left trans he400">
+                    <div class="cont">
+                        <div class="icon">&#xe624;</div>
+                        <div class="tit">宣传物料设计</div>
+                        <div class="com">九五策划有专业的创意团队，通过创意、文案、图像和摄影等手段，在推广过程中塑造并赋予品牌一种独特的个性。有效展示广告主题，在行业范围内超越于无形。<br/><br/>
+                            进行广告形象创意<br/>
+                            DM单、海报设计<br/>
+                            宣传物料设计<br/>
+                            户外平面设计
+                        </div>
+                    </div>
+                </aside>
+                <aside class="item pull-left trans he400">
+                    <div class="cont">
+                        <div class="icon">&#xe614;</div>
+                        <div class="tit">画册设计</div>
+                        <div class="com">九五策划坚持做正确传达产品的优良品质及性能的企业画册，同时给受众带来卓越的视觉感受，进而获得在选购和使用之后的价值提升。派点设计团队在接受有关产品企业画册的具体设计委托时，必须从两方面入手寻求表现的方法。<br/><br/>收集整理企业资料 ·与企业沟通确定设计风格、费用、周期、开本、页数、纸张等。
+                            <br/>企业画册设计</div>
+                    </div>
+                </aside>
+                <aside class="item pull-left trans he400">
+                    <div class="cont">
+                        <div class="icon">&#xe6e1;</div>
+                        <div class="tit">包装系统</div>
+                        <div class="com">九五团队创造性的站在品牌的高度思考包装，我们用品牌创新策略、消费者体验洞察，提供创造性包装解决方案。侧重全产品系列包装的识别架构规划，使包装实现体系化，提升产品的终端表现，提供具有差异化感受的包装设计。初分市场客户群体，确定产品定位、价格及渠道
+                            <br/><br/>产品样品间的关系梳理
+                            <br/>产品形象的初分类
+                            <br/>包装规范化设计</div>
+                    </div>
+                </aside>
+            </div>
+        </article>
+    </section>
+    <section class="webIntro vi-box">
+        <article class="container-box">
+            <div class="intro pos-re">
+                <div class="image"><img src="__PUBLIC__/home/images/vi-center.jpg" class="img-responsive"></div>
+                <div class="text-box">
+                    <div class="title"><span>品牌</span>策略</div>
+                    <div class="com">
+                        <p>我们已作好充分的准备，帮助您重新定位品牌，重塑品牌价值，竭尽所能帮助您的品牌更为成功。</p>
+                        <p>品牌调研&品牌命名</p>
+                        <p>品牌定位</p>
+                        <p>品牌规划</p>
+                    </div>
+                </div>
+            </div>
+        </article>
+    </section>
+    <section class="case-box">
+        <article class="container-box">
+            <div class="title">相关案例</div>
+            <div class="list">
+                <div class="row">
+
+                    <div class="col-md-4 col-sm-6" v-for="(item, index) in articleList">
+                        <a :href="item.links" :title="item.title" target="_blank" class="bok item">
+                            <div class="image">
+                                <img :src="item.defaultpic" :alt="item.tags" class="img-responsive">
+                            </div>
+                            <div class="com trans">
+                                <div class="tit">{{item.title}}</div>
+                                <div class="idea">{{item.tags}}</div>
+                            </div>
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+        </article>
+    </section>
+    <script language="JavaScript">
+        var jwvue = new Vue({
+            el: '#appRoot',
+            data: {
+                cateId: 137,
+                articleList: [],
+                status: 0,
+                page: 1,
+                pageSize: 6
+            },
+            methods: {
+                getArticleList: function(){
+                    if(this.status == 1){
+                        return false;
+                    }
+                    this.status = 1;
+                    $.ajax({
+                        'url': '/index.php/Help/getArticleUserAjax',
+                        'type': 'POST',
+                        'data': {
+                            'cateid': this.cateId,
+                            'page': this.page,
+                            'pagesize': this.pageSize
+                        },
+                        'success': function(res){
+                            if(res.length == 0){
+                                jwvue.$data.pageMax = true;
+                            }else{
+                                jwvue.$data.page += 1;
+                                jwvue.$data.articleList = jwvue.$data.articleList.concat(res);
+                            }
+                            jwvue.$data.status = 0;
+                        }
+                    });
+                }
+            },
+            created: function(){
+                this.getArticleList();
+            }
+        });
+    </script>
+</block>

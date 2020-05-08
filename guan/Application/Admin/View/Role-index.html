@@ -1,0 +1,104 @@
+<extend name="./Public/admin/index.html"/>
+<block name="css">
+
+</block>
+<block name="main">
+<div class="row">
+        <div class="col-xs-12">
+          <div class="box box-danger">
+            <div class="box-header with-border">                
+                <a class="btn btn-success btn-sm btn-sub-taxis" href="javascript:void(0);"><i class="fa fa-sort-alpha-desc"></i> 更新排序</a> <a class="btn btn-info btn-sm" href="{:U('/Role/add')}"><i class="fa fa-plus"></i> 添加规则</a>
+             </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+             <div class="table-responsive">  
+             <table id="sample-table-1" class="table table-striped table-bordered table-hover">
+                <thead>
+                   <tr>
+                      <th class="text-center" width="60">排序</th>
+                      <th>规则名称</th>
+                      <th>标记</th>
+                      <th class="text-center">权限公开</th>
+                      <th class="text-center">属性</th>
+                      <th class="text-center">操作</th>
+                   </tr>
+                </thead>
+                <tbody>
+                   <volist name='catearr' id='rs'>
+                   <tr>
+                      <td class="text-center">
+                         <input class="text-center" size="4" value="{$rs.taxis}" data-id="{$rs.id}" type="text" name="fortaxis">
+                      </td>
+                      <td>
+                         <for start="0" end="$rs['level']">&nbsp;&nbsp;</for>
+                         <for start="0" end="$rs['level']">∟</for>{$rs.name}
+                      </td>
+                      <td>{$rs.role}</td>
+                      <td class="text-center">
+                         <if condition="$rs['islock'] eq 0">是<else /><span class="red">否</span></if>
+                      </td>
+                      <td class="text-center">
+                         <if condition="$rs['model'] eq 0">按钮菜单<else />内容分类</if>
+                      </td>
+                      <td class="text-center">
+                            <if condition="$rs['issys'] eq 0">
+                            <a class="btn btn-xs btn-info" href="{:U('/Role/edit',array('id'=>$rs['id']))}">
+                               <i class="fa fa-edit"></i> 编辑
+                            </a>
+                            <a class="btn btn-xs btn-danger" href="javascript:del({$rs.id});">
+                               <i class="fa fa-trash"></i> 删除
+                            </a>
+                            </if>
+                         
+                      </td>
+                   </tr>
+                   </volist>
+                </tbody>
+             </table>
+             </div>
+            </div>
+            <!-- /.box-body -->
+          </div>
+        </div>
+        <!-- /.col -->
+      </div>
+</block>
+<block name="js">
+<script language="javascript">
+function del(id){
+   var url = "{:U('/Role/delete/id/"+id+"')}";
+   //url += '/id/'+id;
+   $.ajax({
+	 url : url,
+	 type : "GET", 
+	 success : function(data){
+	    var d=$.parseJSON(data);
+		$.fn.tips({type:d.type,content:d.content,url:d.url});
+	 }  
+   });
+}
+$(function(){
+   $('.btn-sub-taxis').click(function(){
+      var chk_value =Array();
+	  var tax_value = Array();
+	  $("input[name='fortaxis']").each(function(){
+		 chk_value.push($(this).attr('data-id'));
+		 tax_value.push($(this).val());
+	  });
+	  $.ajax({
+			 url: "{:U('/Role/updatetaxis',array('tabel'=>'admin_menu'))}", 
+			 type: "POST",
+			 data:{idarray:chk_value,taxisArray:tax_value},
+			 //dataType: "json",
+			 error: function(){  
+				 $.fn.tips({type:"error",content:"更新排序失败!"}); 
+			 },  
+			 success: function(data,status){
+				 var d=$.parseJSON(data);
+				 $.fn.tips({type:d.type,content:d.content,url:d.url});				 
+			 }
+      });
+   });	
+});
+</script>
+</block>

@@ -1,0 +1,127 @@
+<extend name="./Public/home/index.html"/>
+<block name="pagestatic">
+    <link href="__PUBLIC__/home/css/resetcommon.css" rel="stylesheet" type="text/css"/>
+    <link href="__PUBLIC__/home/css/Style.css" rel="stylesheet" type="text/css"/>
+    <script type="text/javascript" src="__PUBLIC__/home/js/NSW_DetailsPro.js"></script>
+</block>
+<block name="main">
+    <include file="Public/banner" />
+    <div class="content">
+        <div class="rightl">
+            <div class="pro_main">
+                <div id="printableview">
+                    <include file="Public/breadnav" />
+                    <div class="pleft">
+                        <div class="mainbox">
+                            <div class="maincont">
+                                <div class="prodetailsinfo">
+                                    <div class="proviewbox">
+                                        <div class="probigshow">
+                                            <a class="jqzoom" href="{$rsshow['defaultpic']}">
+                                                <img src="{$rsshow['defaultpic']}" class="js_goods_image_url" style="width: 300px;">
+                                            </a>
+                                        </div>
+                                        <div class="div_prothumb">
+                                            <div class="thumbporbox">
+                                                <ul class="ul_prothumb" id="img_list">
+                                                    <foreach name="rsshow['picarr']" item="vo">
+                                                    <li class="<if condition='$i eq 1'>now</if>">
+                                                        <a href="{$vo['pic']}"><img longdesc="{$vo['pic']}" src="{$vo['pic']}" width="60"></a>
+                                                    </li>
+                                                    </foreach>
+                                                </ul>
+                                            </div>
+                                            <span class="span_prev span_prevb">prev</span>
+                                            <span class="span_next span_nextb">next</span>
+                                        </div>
+                                        <!--<div class="div_prolinks">
+                                            <a id="a_enlarge" href="/">查看全部大图</a>
+                                        </div>-->
+                                    </div>
+                                    <div class="clear"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="project_tps"></div>
+                    </div>
+                    <div class="pright">
+                        <div class="propar">
+                            <h4 class="corange">{$rsshow['title']}</h4>
+                            <div class="clear"></div>
+                            <div class="cps pd_short">
+                                <foreach name="rsshow['parm']" item="vo">
+                                    <p>{$vo['prm_name']}：{$vo['prm_val']}</p>
+                                </foreach>
+                            </div>
+                            <div class="pd_hotline">
+                                <span>订购热线：</span>
+                                <span class="font_hotline">{:C('SITE_WORK_PHONE')}</span>
+                            </div>
+                        </div>
+                        <div class="clear"></div>
+                        <div class="propar" style="text-align: center; padding-top: 20px;">
+                            <div class="proparp">
+                                <a href="https://wpa.qq.com/msgrd?v=3&uin={:C('SITE_WORK_QQ')}&site=qq&menu=yes">
+                                    <img style="border: 0" src="__PUBLIC__/home/images/buynowsmalls.gif" alt="" />
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+                    <div class="cp">
+                        <div class="cptab">
+                            <a href="javascript:void(0)" target_id="cptab_relevant" class="cr">跟此产品相关的产品</a>
+                            <div class="clear"></div>
+                        </div>
+                        <div>
+                            <Jwcms:listrand id="focusid" limit="3">
+                            <dl>
+                                <dt>
+                                    <a href="{$rs['links']}">
+                                        <img src="{$rs['defaultpic']}" />
+                                    </a>
+                                </dt>
+                                <dd class="t1">
+                                    <a href="{$rs['links']}">{$rs['title']}</a>
+                                </dd>
+                            </dl>
+                            </Jwcms:listrand>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                    <div class="clear"></div>
+                    <div class="fenlei">
+                        <div class="tit">
+                            <a id="detail0" class="cur"><span>产品详情</span></a>
+                            <div class="clear"></div>
+                        </div>
+                    </div>
+                    <div class="proinfo " id="detailvalue0">
+                        {$rsshow['content']}
+                        <div class="clear"></div>
+                    </div>
+                </div>
+                <h4 class='t06 f14 mt8'>相关资讯</h4>
+                <div class='info_b2'>
+                    <ul class='p_list_ul2'>
+                        <Jwcms:list id="37" limit="20" join="true" field="b.dirname">
+                            <li>
+                                <a href="{$rs['links']}">{$rs['title']}</a>
+                            </li>
+                        </Jwcms:list>
+                    </ul>
+                    <div class='clear'></div>
+                </div>
+                <!--相关产品-->
+                <div class="clear"></div>
+            </div>
+        </div>
+        <include file="Public/category" />
+        <div id="mailArticle"></div>
+    </div>
+    <script type="text/javascript">
+        //productLoad();
+        //initCommonHeaderKeywords(MARK);
+        $(".jqzoom").jqzoom({ title: false, zoomWidth: 340, zoomHeight: 340, xOffset: 4 });
+    </script>
+</block>

@@ -1,0 +1,114 @@
+<extend name="./Public/admin/index.html"/>
+<block name="css">
+
+<link rel="stylesheet" href="__PUBLIC__/admin/plugins/select2/select2.min.css">
+<link rel="stylesheet" href="__PUBLIC__/admin/plugins/datepicker/datepicker3.css">
+<link rel="stylesheet" href="__PUBLIC__/admin/plugins/iCheck/all.css">
+</block>
+<block name="main">
+<div class="row">
+        <div class="col-xs-12">
+          <div class="box box-danger">
+            <div class="box-header with-border">                
+                <a class="btn btn-info btn-sm" href="{:U('/Carousel/addgroup')}"><i class="fa fa-plus"></i> 添加幻灯位置</a>
+                <a class="btn btn-danger btn-sm btn-sub-del" href="javascript:void(0);"><i class="fa fa-trash"></i> 删除</a>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">             
+             <div class="table-responsive">  
+                 <table id="sample-table-1" class="table table-striped table-bordered table-hover">
+                    <thead>
+                       <tr>
+                          <th class="text-center">
+                            <input id="checkall" class="minimal-red" type="checkbox">
+                          </th>
+                          <th class="text-center">ID</th>
+                          <th>名称</th>
+                          <th class="text-center">描述</th>
+                          <th class="text-center">操作</th>
+                       </tr>
+                    </thead>
+                    <tbody>
+                       <volist name='list' id='rs'>
+                       <tr>
+                          <td class="text-center">
+                             
+                                <input name="for-dosth" value="{$rs['id']}" class="minimal-red" type="checkbox">
+                             
+                          </td>
+                          <td class="text-center">{$rs['id']}</td>
+                          <td>{$rs['name']}</td>
+                          <td class="text-center">{$rs['content']}</td>
+                          <td class="text-center">
+                             <a class="btn btn-xs btn-info" href="{:U('/Carousel/editgroup',array('id'=>$rs['id']))}">
+                               <i class="fa fa-edit"></i> 编辑
+                             </a>
+                             <a class="btn btn-xs btn-danger btn-del" href="javascript:void(0);" data-id="{$rs['id']}">
+                               <i class="fa fa-trash"></i> 删除
+                             </a>                             
+                          </td>
+                       </tr>
+                       </volist>
+                    </tbody>
+                 </table>
+             </div>
+            </div>
+            <!-- /.box-body -->
+          </div>
+        </div>
+        <!-- /.col -->
+</div>
+<style type="text/css">
+.table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th{ vertical-align:middle; }
+</style>      
+</block>
+<block name="js">
+<script src="__PUBLIC__/admin/plugins/iCheck/icheck.min.js"></script>
+<script language="javascript">
+$(function(){
+   
+   $('#checkall').on('ifChecked',function(){
+      //var f = $(this).prop('checked');
+	  $('input[name="for-dosth"]').each(function(){
+         $(this).iCheck('check');  
+      });
+   });
+   $('#checkall').on('ifUnchecked',function(){
+      //var f = $(this).prop('checked');
+	  $('input[name="for-dosth"]').each(function(){
+         $(this).iCheck('uncheck');  
+      });
+   });
+   $('input[type="checkbox"].minimal-red').iCheck({
+      checkboxClass: 'icheckbox_minimal-red',
+      radioClass: 'iradio_minimal-red'
+   });
+   
+   $('.btn-del').click(function(){
+      var id = $(this).attr('data-id');
+	  del(id);
+   });
+   $('.btn-sub-del').click(function(){
+      var chk_value =Array();
+	  $('input[name="for-dosth"]:checked').each(function(){
+		 chk_value.push($(this).val());
+      });
+	  if(chk_value == ""){
+	     $.fn.tips({type:'error',content:'您没有选择任何项目'});
+	  }else{
+	     del(chk_value);
+	  }
+   });
+});
+function del(idarr){
+      $.ajax({
+			 url: "{:U('/Carousel/delgroup')}", 
+			 type: "POST",
+			 data:{'idarr':idarr}, 
+			 success: function(d){
+				 $.fn.tips({'type':d.type,'content':d.msg,'url':d.url});			 
+			 }
+      });
+}
+</script>
+</block>

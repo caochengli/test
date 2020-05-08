@@ -1,0 +1,104 @@
+<extend name="./Public/home/index.html"/>
+<block name="onecss">
+    <link href="__PUBLIC__/home/css/applets.css" rel="stylesheet" type="text/css">
+</block>
+<block name="main">
+    <include file="Public/banner" />
+    <section class="applets-box">
+        <article class="container-box">
+            <div class="list clearfix">
+                <aside class="item pull-left trans">
+                    <div class="cont">
+                        <div class="icon">&#xe66f;</div>
+                        <div class="tit">H5 App</div>
+                        <div class="com">H5 App开发就是HTML5开发语言制作的移动手机网站。H5 APP具备移动体验好、推广成本低、加载速度快等特点，相对IOS/Andrioid APP来讲，其开发成本更低，修改更新速度更快。</div>
+                    </div>
+                </aside>
+                <aside class="item pull-left trans">
+                    <div class="cont">
+                        <div class="icon">&#xe603;</div>
+                        <div class="tit">iOS App</div>
+                        <div class="com">IOS是基于iPhone开发的操作系统，在移动终端用户众多，用户粘性较大,iPhone和iPad都是高端型的产品，其用户具有较高消费能力,iOS生态系统具备硬件和软件的一致性，以及超强的稳定性。</div>
+                    </div>
+                </aside>
+                <aside class="item pull-left trans">
+                    <div class="cont">
+                        <div class="icon">&#xe667;</div>
+                        <div class="tit">Android App</div>
+                        <div class="com">Android是增长最迅速的移动平台,Android手机操作系统是基于Linux内核和多线程的开发平台，Android是一个开源平台，提供种类繁多的函数库和有用的工具，可以用来开发最有创意和先进的移动应用程序。</div>
+                    </div>
+                </aside>
+                <aside class="item pull-left trans">
+                    <div class="cont">
+                        <div class="icon">&#xe67d;</div>
+                        <div class="tit">Watch App</div>
+                        <div class="com">Watch应用是对iOS App应用的补充，目前Watch App只能完成一些相对简单的功能，如信息提醒、图片、声音、视频的传递，包括对功能菜单的操作指令，因画面尺寸的原因，UI设计上呈现的内容较少。</div>
+                    </div>
+                </aside>
+            </div>
+        </article>
+    </section>
+    <section class="case-box">
+        <article class="container-box">
+            <div class="title">相关案例</div>
+            <div class="list">
+                <div class="row">
+
+                    <div class="col-md-4 col-sm-6" v-for="(item, index) in articleList">
+                        <a :href="item.links" :title="item.title" target="_blank" class="bok item">
+                            <div class="image">
+                                <img :src="item.defaultpic" :alt="item.tags" class="img-responsive">
+                            </div>
+                            <div class="com trans">
+                                <div class="tit">{{item.title}}</div>
+                                <div class="idea">{{item.tags}}</div>
+                            </div>
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+        </article>
+    </section>
+    <script language="JavaScript">
+        var jwvue = new Vue({
+            el: '#appRoot',
+            data: {
+                cateId: 136,
+                articleList: [],
+                status: 0,
+                page: 1,
+                pageSize: 6
+            },
+            methods: {
+                getArticleList: function(){
+                    if(this.status == 1){
+                        return false;
+                    }
+                    this.status = 1;
+                    $.ajax({
+                        'url': '/index.php/Help/getArticleUserAjax',
+                        'type': 'POST',
+                        'data': {
+                            'cateid': this.cateId,
+                            'page': this.page,
+                            'pagesize': this.pageSize
+                        },
+                        'success': function(res){
+                            if(res.length == 0){
+                                jwvue.$data.pageMax = true;
+                            }else{
+                                jwvue.$data.page += 1;
+                                jwvue.$data.articleList = jwvue.$data.articleList.concat(res);
+                            }
+                            jwvue.$data.status = 0;
+                        }
+                    });
+                }
+            },
+            created: function(){
+                this.getArticleList();
+            }
+        });
+    </script>
+</block>

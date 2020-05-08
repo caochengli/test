@@ -1,0 +1,96 @@
+<extend name="./Public/home/index.html"/>
+<block name="onecss">
+    <link href="__PUBLIC__/home/css/sale.css" rel="stylesheet" type="text/css">
+</block>
+<block name="main">
+    <include file="Public/banner" />
+    <section class="applets-box">
+        <article class="container-box">
+            <div class="list clearfix">
+                <aside class="item pull-left trans">
+                    <div class="cont">
+                        <div class="icon">&#xe622;</div>
+                        <div class="tit">搜索引擎SEO优化</div>
+                        <div class="com">实现PC端iPad端M手机端及WeChat微信端多平台的浏览方式，不同的分辨率下依然保持风格的一致阅读性，后台更新数据可同步至多个平台，高效快捷。</div>
+                    </div>
+                </aside>
+                <aside class="item pull-left trans">
+                    <div class="cont">
+                        <div class="icon">&#xe654;</div>
+                        <div class="tit">微信营销推广</div>
+                        <div class="com">采用国际主流的网站设计风格并结合品牌及企业的VI形象来确定网站的样式，达到优秀的网站视觉效果、顺畅的用户体验及信息传达的准确性。</div>
+                    </div>
+                </aside>
+                <aside class="item pull-left trans">
+                    <div class="cont">
+                        <div class="icon">&#xe609;</div>
+                        <div class="tit">百度知道&百科</div>
+                        <div class="com">将营销的思路、文案和图片融入到具备美感的品牌网站中来，实现品牌及企业的商业目标及获得销售线索或直接获得订单。</div>
+                    </div>
+                </aside>
+                <aside class="item pull-left trans">
+                    <div class="cont">
+                        <div class="icon">&#xe60a;</div>
+                        <div class="tit">软文推广</div>
+                        <div class="com">实现在线销售&在线购物服务。其功能主要包含商品的管理、会员的管理、订单的管理、库存的管理、优惠的管理、在线支付等。</div>
+                    </div>
+                </aside>
+            </div>
+        </article>
+    </section>
+    <section class="sale-case">
+        <article class="container-box">
+            <div class="item clearfix pos-re" v-bind:class="{ act: ((index+1)%2)==0 }" v-for="(item, index) in articleList">
+                <div class="image"><img :src="item.one_pic" target="_blank" class="img-responsive"></div>
+                <div class="text-cont pos-ab">
+                    <div class="title">{{item.title}}</div>
+                    <div class="line"></div>
+                    <div class="key-word">{{item.tags}}</div>
+                    <div class="com">{{item.shortcontent}}</div>
+                    <a :href="item.links" class="bok konw-dt trans"><span>了解详情</span></a>
+                </div>
+            </div>
+        </article>
+    </section>
+    <script language="JavaScript">
+        var jwvue = new Vue({
+            el: '#appRoot',
+            data: {
+                cateId: 138,
+                articleList: [],
+                status: 0,
+                page: 1,
+                pageSize: 6
+            },
+            methods: {
+                getArticleList: function(){
+                    if(this.status == 1){
+                        return false;
+                    }
+                    this.status = 1;
+                    $.ajax({
+                        'url': '/index.php/Help/getArticleUserAjax',
+                        'type': 'POST',
+                        'data': {
+                            'cateid': this.cateId,
+                            'page': this.page,
+                            'pagesize': this.pageSize
+                        },
+                        'success': function(res){
+                            if(res.length == 0){
+                                jwvue.$data.pageMax = true;
+                            }else{
+                                jwvue.$data.page += 1;
+                                jwvue.$data.articleList = jwvue.$data.articleList.concat(res);
+                            }
+                            jwvue.$data.status = 0;
+                        }
+                    });
+                }
+            },
+            created: function(){
+                this.getArticleList();
+            }
+        });
+    </script>
+</block>

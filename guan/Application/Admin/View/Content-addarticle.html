@@ -1,0 +1,306 @@
+<extend name="./Public/admin/index.html"/>
+<block name="css">
+
+<link rel="stylesheet" href="__PUBLIC__/admin/plugins/select2/select2.min.css">
+</block>
+<block name="main">
+<div class="row">
+   <div class="col-xs-12">
+      <form name="import_form" method="post" onsubmit="return checkfm();" action="{:U('/Content/insarticle')}">
+      <div class="nav-tabs-custom">
+         <ul class="nav nav-tabs">
+            <li class="active"><a href="#default" data-toggle="tab">基本</a></li>
+            <li><a href="#attrset" data-toggle="tab">案例属性</a></li>
+            <li><a href="#seoset" data-toggle="tab">优化设置</a></li>
+            <li><a href="#other" data-toggle="tab">其它</a></li>
+         </ul>         
+         <div class="tab-content form-horizontal">            
+            
+            <div class="active tab-pane" id="default">
+               <if condition="count($catelis) gt 0">
+               <div class="form-group">
+                  <label for="catename" class="col-sm-2 control-label">分类：</label>
+                  <div class="col-sm-2 col-xs-12">
+                     <select name="cateid" id="cateid" class="form-control">                                 
+                        <option value="{$focusid}">{$focusname}</option>
+                        <volist name='catelis' id='rscate'> 
+                        <option value="{$rscate['id']}"><for start="0" end="$rscate['level']">∟</for>{$rscate['catename']}</option>
+                        </volist>
+                     </select>
+                  </div>
+               </div>
+               <else />
+               <input type="hidden" name="cateid" value="{$focusid}" />
+               </if>
+               <input type="hidden" name="bkid" value="{$focusid}" />
+               <div class="form-group">
+                  <label for="title" class="col-sm-2 control-label">标题：</label>
+                  <div class="col-sm-4 col-xs-12">
+                     <input type="text" class="form-control" name="title" id="title">
+                  </div>
+               </div>
+
+               <div class="form-group">
+                  <label for="tags" class="col-sm-2 control-label">标签：</label>
+                  <div class="col-sm-4 col-xs-12">
+                     <input type="text" class="form-control" name="tags" id="tags">
+                  </div>
+               </div>
+
+               <div class="form-group">
+                  <label for="defaultpic" class="col-sm-2 col-xs-12 control-label">图片：</label>
+                  <div class="col-sm-3 col-xs-8">
+                     <p><input type="text" class="form-control" name="defaultpic" id="defaultpic" /></p>
+                     <p><button type="button" class="btn btn-danger upload_button" id="file_upload_01" data-input="defaultpic" data-img="defaultpic_pic">上传</button><i class="pull-right" id="loading" style="display:none;"><img src="__PUBLIC__/admin/dist/img/loading.gif" /></i></p>
+                                    
+                  </div>
+                  <div class="col-sm-1 col-xs-4">
+                     <img src="__PUBLIC__/admin/dist/img/nopic.jpg" id="defaultpic_pic" class="img-responsive" />
+                  </div>
+               </div>
+               <div class="form-group">
+                  <label for="shortcontent" class="col-sm-2 control-label">简介：</label>
+                  <div class="col-sm-10 col-xs-12">
+                     <textarea class="easyedit" style="width:100%; height:200px;" name="shortcontent"></textarea>
+                  </div>
+               </div>
+               <div class="form-group">
+                  <label for="content" class="col-sm-2 control-label">正文：</label>
+                  <div class="col-sm-10 col-xs-12">
+                     <textarea class="kindeditor" style="width:100%; height:300px;" name="content"></textarea>
+                  </div>
+               </div>
+            </div>
+            <div class="tab-pane" id="seoset">
+               <div class="form-group">
+                  <label for="seo_title" class="col-sm-2 control-label">优化标题：</label>
+                  <div class="col-sm-4 col-xs-12">
+                     <input type="text" class="form-control" name="seo_title" id="seo_title">
+                  </div>
+               </div>
+               <div class="form-group">
+                  <label for="seo_keyword" class="col-sm-2 control-label">关键词：</label>
+                  <div class="col-sm-4 col-xs-12">
+                     <textarea name="seo_keyword" id="seo_keyword" class="form-control"></textarea>
+                  </div>
+               </div>
+               <div class="form-group">
+                  <label for="seo_desc" class="col-sm-2 control-label">描述：</label>
+                  <div class="col-sm-4 col-xs-12">
+                     <textarea name="seo_desc" id="seo_desc" class="form-control"></textarea>
+                  </div>
+               </div>
+            </div>
+
+            <div class="tab-pane" id="attrset">
+               <div class="form-group">
+                  <label for="links" class="col-sm-2 control-label">链接：</label>
+                  <div class="col-sm-4 col-xs-12">
+                     <input type="text" class="form-control" name="links" id="links">
+                  </div>
+               </div>
+               <div class="form-group">
+                  <label for="qrcode" class="col-sm-2 col-xs-12 control-label">二维码：</label>
+                  <div class="col-sm-3 col-xs-8">
+                     <p><input type="text" class="form-control" name="qrcode" id="qrcode" /></p>
+                     <p>
+                        <button type="button" class="btn btn-danger upload_button" id="file_upload_02" data-input="qrcode" data-img="qrcode_pic">上传
+                        </button>
+                        <i class="pull-right" id="loading" style="display:none;"><img src="__PUBLIC__/admin/dist/img/loading.gif"/></i>
+                     </p>
+                  </div>
+                  <div class="col-sm-1 col-xs-4">
+                     <img src="__PUBLIC__/admin/dist/img/nopic.jpg" id="qrcode_pic" class="img-responsive"/>
+                  </div>
+               </div>
+               <div class="form-group">
+                  <label for="one_pic" class="col-sm-2 col-xs-12 control-label">推荐图片：</label>
+                  <div class="col-sm-3 col-xs-8">
+                     <p><input type="text" class="form-control" name="one_pic" id="one_pic" /></p>
+                     <p>
+                        <button type="button" class="btn btn-danger upload_button" id="file_upload_04" data-input="one_pic" data-img="one_pic_pic">上传
+                        </button>
+                        <i class="pull-right" id="loading" style="display:none;"><img src="__PUBLIC__/admin/dist/img/loading.gif"/></i>
+                     </p>
+                     <p>网络营销案例，该图片将在网络营销单页内使用</p>
+                  </div>
+                  <div class="col-sm-1 col-xs-4">
+                     <img src="__PUBLIC__/admin/dist/img/nopic.jpg" id="one_pic_pic" class="img-responsive"/>
+                  </div>
+               </div>
+               <div class="form-group">
+                  <label for="sup_pic" class="col-sm-2 col-xs-12 control-label">顶部大图：</label>
+                  <div class="col-sm-3 col-xs-8">
+                     <p><input type="text" class="form-control" name="sup_pic" id="sup_pic" /></p>
+                     <p>
+                        <button type="button" class="btn btn-danger upload_button" id="file_upload_03" data-input="sup_pic" data-img="sup_pic_pic">上传
+                        </button>
+                        <i class="pull-right" id="loading" style="display:none;"><img src="__PUBLIC__/admin/dist/img/loading.gif"/></i>
+                     </p>
+                  </div>
+                  <div class="col-sm-1 col-xs-4">
+                     <img src="__PUBLIC__/admin/dist/img/nopic.jpg" id="sup_pic_pic" class="img-responsive"/>
+                  </div>
+               </div>
+               <div class="form-group">
+                  <label for="serv_content" class="col-sm-2 control-label">服务内容：</label>
+                  <div class="col-sm-10 col-xs-12">
+                     <textarea class="easyedit" style="width:100%; height:200px;" name="serv_content"></textarea>
+                  </div>
+               </div>
+            </div>
+
+            <div class="tab-pane" id="other">
+               <div class="form-group">
+                  <label for="author" class="col-sm-2 control-label">作者：</label>
+                  <div class="col-sm-2 col-xs-12">
+                     <input type="text" class="form-control" name="author" id="author" value="{$Think.session.user.username}">
+                  </div>
+               </div>
+               <div class="form-group">
+                  <label for="comefrom" class="col-sm-2 control-label">来源：</label>
+                  <div class="col-sm-2 col-xs-12">
+                     <input type="text" class="form-control" name="comefrom" id="comefrom" value="{:C('SITE_TITLE')}">
+                  </div>
+               </div>
+               <div class="form-group">
+                  <label for="hits" class="col-sm-2 control-label">点击率：</label>
+                  <div class="col-sm-2 col-xs-12">
+                     <input type="text" class="form-control" name="hits" id="hits" value="0">
+                  </div>
+               </div>
+               <div class="form-group">
+                  <label for="isgood" class="col-sm-2 control-label">推荐：</label>
+                  <div class="col-sm-1 col-xs-12">
+                     <select name="isgood" id="isgood" class="form-control">
+                        <option value="0">否</option>
+                        <option value="1">是</option>
+                     </select>
+                  </div>
+               </div>
+               <div class="form-group">
+                  <label for="isfocus" class="col-sm-2 control-label">置顶：</label>
+                  <div class="col-sm-1 col-xs-12">
+                     <select name="isfocus" id="isfocus" class="form-control">
+                        <option value="0">否</option>
+                        <option value="1">是</option>
+                     </select>
+                  </div>
+               </div>
+               <div class="form-group">
+                  <label for="addtime" class="col-sm-2 control-label">时间：</label>
+                  <div class="col-sm-4 col-xs-12">
+                     <input type="text" class="form-control" name="addtime" id="addtime" value="{:date('Y-m-d H:i:s')}">
+                  </div>
+               </div>
+               <div class="form-group">
+                  <label for="taxis" class="col-sm-2 control-label">排序：</label>
+                  <div class="col-sm-1 col-xs-12">
+                     <input type="text" class="form-control" name="taxis" id="taxis" value="0">
+                  </div>
+               </div>
+                             
+            </div>
+            
+         </div>         
+      </div>
+      <div class="clearfix"><button type="submit" class="btn btn-info"> <i class="icon-ok bigger-110"></i>确认添加</button></div>
+      </form> 
+        
+   </div>
+   <!-- /.col -->
+</div>
+</block>
+<block name="js">
+<script src="__PUBLIC__/admin/plugins/select2/select2.full.min.js"></script>
+<link rel="stylesheet" href="__PUBLIC__/kindEditor/themes/default/default.css" />
+<script charset="utf-8" src="__PUBLIC__/kindEditor/kindeditor.js"></script>
+<script charset="utf-8" src="__PUBLIC__/kindEditor/lang/zh_CN.js"></script>
+<script language="javascript">
+function checkfm(){
+   var title = $('#title').val();
+   //var content = $('.kindeditor').val();
+   //alert(content);
+   if(title == ""){
+	  $.fn.tips({type:'error',content:'标题不可为空'});
+	  $('#title').focus().parent().parent().addClass('has-error');
+	  return false;
+   }else{
+      return true;
+   }
+}
+var specitm = "<tr><td><input type='text' class='form-control' name='prm_name[]' placeholder='名称'></td><td><input type='text' class='form-control' name='prm_val[]' placeholder='参数'></td></tr>";
+$(function(){
+    $('.add-parameter-item').click(function(){
+        $('#goods-parameter-area').append(specitm);
+    });
+});
+
+KindEditor.ready(function(K) {
+   var editor = K.editor({
+      uploadJson : '__PUBLIC__/kindEditor/php/upload_json.php',
+      fileManagerJson : '__PUBLIC__/kindEditor/php/file_manager_json.php',
+	  allowFileManager : true
+   });
+    K('.fupDTbtn').click(function() {
+        //视图容器
+        var viewArea = K("#"+K(this).attr("data-view"));
+        //图片字段名称
+        var imgName = K(this).attr("data-img");
+        //标题字段名称
+        //var titName = K(this).attr("data-title");
+        //简介字段名称
+        //var msName = K(this).attr("data-ms");
+        //上传类型
+        var upSty = K(this).attr("data-type");
+        //alert(upSty);
+        //执行上传
+        var strTemp = viewArea.html();
+        editor.loadPlugin('multiimage', function() {
+            editor.plugin.multiImageDialog({
+                clickFn : function(urlList) {
+
+                    K.each(urlList, function(i, data) {
+                        var imgPath = data.url.replace("/Public/kindEditor/php/../../..","");
+                        if(upSty == 1){
+                            //仅图片
+                            strTemp += "<div class='col-sm-2 col-xs-4 img-rep-item'><div class='imgArea'><a href='javascript:void(0);' onclick='delpicarr(this)' class='delpic'></a><img src='"+data.url+"' class='img-responsive'></div><input type='hidden' class='form-control' name='"+imgName+"[]' value='"+imgPath+"'></div>";
+                        }else if(upSty == 2){
+                            //图片加排序
+                            strTemp += "<div class='col-xs-6 col-sm-4 col-md-3 img-rep-item'><div class='imgArea'><a href='javascript:void(0);' onclick='delpicarr(this)' class='delpic'></a><img src='"+data.url+"' class='img-responsive'></div><input type='hidden' class='form-control' name='"+imgName+"[]' value='"+imgPath+"'><input type='text' class='form-control text-center' name='"+imgName+"_taxis[]' value='"+i+"'></div>";
+                        }else if(upSty == 3){
+                            //图片加标题带排序
+                            strTemp += "<div class='col-sm-2 col-xs-4 img-rep-item'><div class='imgArea'><a href='javascript:void(0);' onclick='delpicarr(this)' class='delpic'></a><img src='"+data.url+"' class='img-responsive'></div><p><input type='text' class='form-control text-center' placeholder='请输入标题' name='"+imgName+"_title[]'></p><p><input type='text' class='form-control text-center' name='"+imgName+"_taxis[]' value='"+i+"'></p><input type='hidden' class='form-control' name='"+imgName+"[]' value='"+imgPath+"'></div>";
+                        }else{
+                            strTemp += "<div class='col-xs-12 pad-v-sm img-rep-item'>";
+                            strTemp += "<div class='col-sm-2 col-xs-4'><div class='imgArea'><a href='javascript:void(0);' onclick='delpicarr(this)' class='delpic'></a><img src='"+data.url+"' class='img-responsive'></div></div>";
+                            strTemp += "<div class='col-sm-6 col-xs-8'><input type='hidden' class='form-control' name='"+imgName+"[]' value='"+imgPath+"'><p><input type='text' class='form-control' placeholder='请输入标题' name='"+imgName+"_title[]'></p><textarea class='form-control' name='"+imgName+"_desc[]' placeholder='请输入描述'></textarea><p><input type='text' class='form-control text-center' name='"+imgName+"_taxis[]' value='"+i+"'></p></div>";
+                            strTemp += "</div>";
+                        }
+                    });
+                    //alert(strTemp);
+                    viewArea.html(strTemp);
+                    editor.hideDialog();
+                }
+            });
+        });
+
+    });
+   K.create('.easyedit', {
+                items : [ 'source', '|', 'undo', 'redo', '|', 'image' ,'|', 'fontname', 'fontsize', '|', 'forecolor', 'hilitecolor', 'bold','italic', 'underline', 'strikethrough', '|','link', 'unlink']
+   });
+   K.create('.kindeditor', {
+      uploadJson : '__PUBLIC__/kindEditor/php/upload_json.php',
+      fileManagerJson : '__PUBLIC__/kindEditor/php/file_manager_json.php',
+      allowFileManager : true,
+	  filterMode: false
+   });
+});
+function delpicarr(e){
+    var obj = $(e);
+    obj.parents('.img-rep-item').remove();
+    //dmstr = $('#picarr').val();
+    //alert(dmstr);
+}
+</script>
+</block>

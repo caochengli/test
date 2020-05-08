@@ -1,0 +1,111 @@
+<extend name="./Public/admin/index.html"/>
+<block name="css">
+
+</block>
+<block name="main">
+<div class="row">
+        <div class="col-xs-12">
+          <div class="box box-danger">
+            <div class="box-body pad-v">
+                <form name="import_form" class="form-horizontal" method="post" action="{:U('/Role/insert')}" >
+                     <div class="form-group">
+                        <label for="name" class="col-sm-2 control-label">规则名称：</label>
+                        <div class="col-sm-2 col-xs-12">
+                           <input type="text" class="form-control" name="name" id="name" value="{$rs.name}">
+                        </div>
+                     </div>
+                     <div class="form-group">
+                        <label for="role" class="col-sm-2 control-label">规则标记：</label>
+                        <div class="col-sm-2 col-xs-12">
+                           <input type="text" class="form-control" name="role" id="role" value="{$rs.role}">
+                        </div>
+                     </div>
+                     <div class="form-group">
+                        <label for="pid" class="col-sm-2 control-label">上级菜单：</label>
+                        <div class="col-sm-2 col-xs-12">
+                           <select class="form-control" name="pid" id="pid" <if condition="$rs['isson'] eq 1">disabled="disabled"</if>>
+                              <option value="0">顶级菜单</option>
+                              <volist name='catearr' id='rscate'>
+                                 <if condition="$rscate['id'] eq $rs['pid']">
+                                    <option value="{$rscate.id}" selected="selected">
+                                 <else />
+                                    <option value="{$rscate.id}" <if condition="$rscate['issys'] eq 1">disabled</if>>
+                                 </if>
+                                 <for start="0" end="$rscate['level']">∟</for>
+                                 {$rscate.name}
+                                 </option>
+                              </volist>
+                           </select>
+                           <if condition="$rs['isson'] eq 1">
+                           <span class="red">&nbsp;当前分类存在子类，不允许编辑</span>
+                           </if>
+                        </div> 
+                     </div>
+                     <div class="form-group">
+                        <label for="icon" class="col-sm-2 col-xs-12 control-label">小图标：</label>
+                        <div class="col-sm-2 col-xs-12">
+                           <input type="text" class="form-control" name="icon" id="icon" value="{$rs.icon}">
+                        </div>
+                     </div>
+                     <div class="form-group">
+                        <label for="taxis" class="col-sm-2 col-xs-12 control-label">排序：</label>
+                        <div class="col-sm-2 col-xs-12">
+                           <input type="text" class="form-control" name="taxis" id="taxis" value="{$rs.taxis}">
+                        </div>
+                     </div>
+                     <div class="form-group">
+                        <label for="islock" class="col-sm-2 col-xs-12 control-label">权限公开：</label>
+                        <div class="col-sm-2 col-xs-12">
+                           <select name="islock" class="form-control" id="islock">
+                              <option value="0" <if condition="$rs['islock'] eq 0">selected="selected"</if>>是</option>
+                              <option value="1" <if condition="$rs['islock'] eq 1">selected="selected"</if>>否</option>
+                           </select>
+                        </div>
+                     </div>
+                     <div class="form-group form-actions">
+                        <div class="col-sm-10 col-sm-offset-2">
+                           <button type="button" class="btn btn-danger btn-sub-fm"> <i class="icon-ok bigger-110"></i>确认修改</button>
+                        </div>
+                     </div>
+                </form> 
+            </div>
+            <!-- /.box-body -->
+          </div>
+        </div>
+        <!-- /.col -->
+      </div>
+</block>
+<block name="js">
+<script language="javascript">
+$(function(){
+   $('.btn-sub-fm').click(function(){
+      var name = $.trim($('#name').val());
+	  var role = $.trim($('#role').val());
+	  var pid = $.trim($('#pid').val());
+	  var icon = $.trim($('#icon').val());
+	  var taxis = $.trim($('#taxis').val());
+	  var islock = $.trim($('#islock').val());
+	  if(name == ""){
+	     $.fn.tips({type:'error',content:'规则名称不可为空'});
+		 $('#name').focus().parents('.form-group').addClass('has-error');
+		 return false;
+	  }else if(role == ""){
+	     $.fn.tips({type:'ok',content:'规则标记不可为空'});
+		 $('#role').focus();
+		 return false;
+	  }
+	  $.ajax({
+		url : "{:U('/Role/update',array('id'=>$rs['id'],'pid'=>$rs['pid']))}",
+		type : "POST",
+		data : {"name":name,"role":role,"pid":pid,"icon":icon,"taxis":taxis,"islock":islock},
+		success : function(data){
+		   var d=$.parseJSON(data);
+		   $.fn.tips({type:d.type,content:d.content,url:d.url});
+		}
+	  });
+   });
+   
+   
+});
+</script>
+</block>

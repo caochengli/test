@@ -1,0 +1,158 @@
+<extend name="./Public/home/index.html"/>
+<block name="onecss">
+    <link href="__PUBLIC__/home/css/service.css" rel="stylesheet" type="text/css">
+</block>
+<block name="main">
+    <include file="Public/banner" />
+    <section class="applets-box">
+        <article class="container-box">
+            <div class="list clearfix">
+                <aside class="item pull-left trans">
+                    <div class="cont">
+                        <div class="icon">&#xe66f;</div>
+                        <div class="tit">H5响应式网站</div>
+                        <div class="com">实现PC端iPad端M手机端及WeChat微信端多平台的浏览方式，不同的分辨率下依然保持风格的一致阅读性，后台更新数据可同步至多个平台，高效快捷。</div>
+                    </div>
+                </aside>
+                <aside class="item pull-left trans">
+                    <div class="cont">
+                        <div class="icon">&#xe607;</div>
+                        <div class="tit">品牌&企业网站</div>
+                        <div class="com">采用国际主流的网站设计风格并结合品牌及企业的VI形象来确定网站的样式，达到优秀的网站视觉效果、顺畅的用户体验及信息传达的准确性。</div>
+                    </div>
+                </aside>
+                <aside class="item pull-left trans">
+                    <div class="cont">
+                        <div class="icon">&#xe606;</div>
+                        <div class="tit">品牌营销型网站</div>
+                        <div class="com">将营销的思路、文案和图片融入到具备美感的品牌网站中来，实现品牌及企业的商业目标及获得销售线索或直接获得订单。</div>
+                    </div>
+                </aside>
+                <aside class="item pull-left trans">
+                    <div class="cont">
+                        <div class="icon">&#xe66b;</div>
+                        <div class="tit">购物&电商网站</div>
+                        <div class="com">实现在线销售&在线购物服务。其功能主要包含商品的管理、会员的管理、订单的管理、库存的管理、优惠的管理、在线支付等。</div>
+                    </div>
+                </aside>
+            </div>
+        </article>
+    </section>
+    <section class="webIntro">
+        <article class="container-box">
+            <div class="intro pos-re">
+                <div class="image"><img src="__PUBLIC__/home/images/intro.jpg" class="img-responsive"></div>
+                <div class="text-box">
+                    <div class="title"><span>响应</span>式网站特殊性</div>
+                    <div class="com">
+                        <p>响应式Web设计的理念是：页面的设计与开发应当根据用户行为以及设备环境(系统平台、屏幕尺寸、屏幕定向等)进行相应的响应和调整，能够兼容多个终端——而不是为每个终端做一个特定的版本，不必为不断到来的新设备做专门的版本设计和开发。</p>
+                        <p>在移动设备终端访问占大多数的网络时代，移动设备使得响应式网页设计变得如此重要。</p>
+                    </div>
+                </div>
+            </div>
+            <div class="service-list">
+                <div class="item">
+                    <div class="icon"><img src="__PUBLIC__/home/images/pc.png"></div>
+                    <div class="cont">
+                        <div class="eng">PC WEB</div>
+                        <div class="cha">电脑网站</div>
+                    </div>
+                </div>
+                <span class="symbol">+</span>
+                <div class="item">
+                    <div class="icon"><img src="__PUBLIC__/home/images/mobile.png"></div>
+                    <div class="cont">
+                        <div class="eng">MOBILE</div>
+                        <div class="cha">手机网站</div>
+                    </div>
+                </div>
+                <span class="symbol">+</span>
+                <div class="item">
+                    <div class="icon"><img src="__PUBLIC__/home/images/pad.png"></div>
+                    <div class="cont">
+                        <div class="eng">TABLET</div>
+                        <div class="cha">平板网站</div>
+                    </div>
+                </div>
+                <span class="symbol">+</span>
+                <div class="item">
+                    <div class="icon"><img src="__PUBLIC__/home/images/wechat2.png"></div>
+                    <div class="cont">
+                        <div class="eng">WECHAT</div>
+                        <div class="cha">微信网站</div>
+                    </div>
+                </div>
+                <span class="symbol">=</span>
+                <div class="item">
+                    <div class="cont">
+                        <div class="eng">RESPONSIVE</div>
+                        <div class="cha">一体式响应式网站</div>
+                    </div>
+                </div>
+            </div>
+        </article>
+    </section>
+    <section class="case-box">
+        <article class="container-box">
+            <div class="title">相关案例</div>
+            <div class="list">
+                <div class="row">
+
+                    <div class="col-md-4 col-sm-6" v-for="(item, index) in articleList">
+                        <a :href="item.links" :title="item.title" target="_blank" class="bok item">
+                            <div class="image">
+                                <img :src="item.defaultpic" :alt="item.tags" class="img-responsive">
+                            </div>
+                            <div class="com trans">
+                                <div class="tit">{{item.title}}</div>
+                                <div class="idea">{{item.tags}}</div>
+                            </div>
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+        </article>
+    </section>
+    <script language="JavaScript">
+        var jwvue = new Vue({
+            el: '#appRoot',
+            data: {
+                cateId: 134,
+                articleList: [],
+                status: 0,
+                page: 1,
+                pageSize: 6
+            },
+            methods: {
+                getArticleList: function(){
+                    if(this.status == 1){
+                        return false;
+                    }
+                    this.status = 1;
+                    $.ajax({
+                        'url': '/index.php/Help/getArticleUserAjax',
+                        'type': 'POST',
+                        'data': {
+                            'cateid': this.cateId,
+                            'page': this.page,
+                            'pagesize': this.pageSize
+                        },
+                        'success': function(res){
+                            if(res.length == 0){
+                                jwvue.$data.pageMax = true;
+                            }else{
+                                jwvue.$data.page += 1;
+                                jwvue.$data.articleList = jwvue.$data.articleList.concat(res);
+                            }
+                            jwvue.$data.status = 0;
+                        }
+                    });
+                }
+            },
+            created: function(){
+                this.getArticleList();
+            }
+        });
+    </script>
+</block>

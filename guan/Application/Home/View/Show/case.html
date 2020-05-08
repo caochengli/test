@@ -1,0 +1,93 @@
+<extend name="./Public/home/index.html"/>
+<block name="onecss">
+    <link href="__PUBLIC__/home/css/case_dt.css" rel="stylesheet" type="text/css">
+</block>
+<block name="main">
+    <section class="child-banner">
+        <img src="{$rsshow['sup_pic']}" class="img-responsive w100">
+        <article class="container-box">
+            <div class="case-info">
+                <div class="content">
+                    <div class="title">{$rsshow['title']}</div>
+                    <div class="keyWords">{$rsshow['tags']}</div>
+                    <if condition="!empty($rs['links'])">
+                    <a href="{$rs['links']}" class="bok links"><i class="icon">&#xe611;</i></a>
+                    </if>
+                </div>
+            </div>
+            <div class="case-toggle">
+                <a href="{$rsshow['navtool']['prev']['links']}" title="{$rsshow['navtool']['prev']['title']}" class="prev toggle"><span class="trans"></span></a>
+                <a class="menu" href="{:C('SITE_URL')}/case/index.html"><span></span></a>
+                <a href="{$rsshow['navtool']['next']['links']}" title="{$rsshow['navtool']['next']['title']}" class="next toggle"><span class="trans"></span></a>
+            </div>
+        </article>
+    </section>
+    <section class="case-intro">
+        <article class="container-box">
+            <div class="cont clearfix">
+                <aside class="progress-intro pull-left">
+                    <div class="content">
+                        <div class="p-t">
+                            <div class="t">项目简介</div>
+                            <div class="line"></div>
+                        </div>
+                        <div class="name">{$rsshow['title']}</div>
+                        <div class="com">{$rsshow['shortcontent']}</div>
+                        <div class="bts">
+                            <if condition="!empty($rsshow['links'])">
+                            <a href="{$rsshow['links']}"><span class="trans">浏览网站</span></a>
+                            </if>
+                            <if condition="!empty($rsshow['qrcode'])">
+                            <a href="javascript:void(0)" class="use-ewm" data-qrcode="{$rsshow['qrcode']}"><span class="trans">扫码访问</span></a>
+                            </if>
+                        </div>
+                    </div>
+                </aside>
+                <aside class="service pull-right">
+                    <div class="content">
+                        <div class="p-t">
+                            <div class="t">服务内容</div>
+                            <div class="line"></div>
+                        </div>
+                        <div class="ser-list">{$rsshow['serv_content']}</div>
+                    </div>
+                </aside>
+                <div class="cutway"></div>
+            </div>
+        </article>
+
+    </section>
+    <section class="case-dt">
+        <article class="container-box">
+            <div class="bg-cover"></div>
+            <div class="content">
+                <div class="main">
+                    <div class="case-content">
+                        {$rsshow['content']}
+                    </div>
+                    <div class="toggle-bts">
+                        <div class="case-toggle">
+                            <a href="{$rsshow['navtool']['prev']['links']}" title="{$rsshow['navtool']['prev']['title']}" class="prev toggle"><span class="trans"></span></a>
+                            <a class="menu" href="{:C('SITE_URL')}/case/index.html"><span></span></a>
+                            <a href="{$rsshow['navtool']['next']['links']}" title="{$rsshow['navtool']['next']['title']}" class="next toggle"><span class="trans"></span></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </article>
+    </section>
+    <script language="JavaScript">
+        $(function(){
+
+        });
+        $(window).load(function(){
+            var h1 = $('.case-intro .progress-intro').height();
+            var h2 = $('.case-intro .service').height();
+            if(h2>h1){
+                $('.case-intro .progress-intro').css('height',h2);
+            }else{
+                $('.case-intro .service').css('height',h1);
+            }
+        });
+    </script>
+</block>

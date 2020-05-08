@@ -1,0 +1,63 @@
+.webIntro .image {
+    width: 50%;
+}
+.webIntro .text-box {
+    position: absolute;
+    width: 50%;
+    height: 100%;
+    right: 0;
+    top: 0;
+    background: #222;
+    color: #FFF;
+    padding: 60px;
+}
+.webIntro .text-box .title {
+    font-size: 24px;
+    padding-bottom: 30px;
+}
+.webIntro .text-box .title span {
+    display: inline-block;
+    padding-bottom: 8px;
+    border-bottom: 2px solid #FFF;
+}
+.webIntro .text-box .com p {
+    padding-bottom: 30px;
+    line-height: 26px;
+	color:#DEDEDE;
+}
+.webIntro .service-list {
+    padding: 40px 0;
+    text-align: center;
+    background: url(../images/list_bg.jpg) no-repeat;
+    background-size: cover;
+}
+.webIntro .service-list .item {
+    display: inline-block;
+}
+.webIntro .service-list .item .icon {
+    display: inline-block;
+}
+.webIntro .service-list .item .cont {
+    display: inline-block;
+    color: #000;
+    position: relative;
+    top:17px;
+}
+.webIntro .service-list .item .cont .eng {
+    font-size: 30px;
+}
+.webIntro .service-list .item .cont .cha {
+    font-size: 16px;
+}
+.webIntro .service-list .symbol {
+    font-size: 30px;
+    display: inline-block;
+    padding: 0 30px;
+}
+.vi-box .image{
+    width: 57%;
+}
+.vi-box .text-box{
+    width: 43%;
+    padding: 40px;
+}

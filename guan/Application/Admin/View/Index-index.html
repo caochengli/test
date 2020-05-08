@@ -1,0 +1,76 @@
+<extend name="./Public/admin/index.html"/>
+<block name="css">
+<link rel="stylesheet" href="__PUBLIC__/admin/plugins/datepicker/datepicker3.css">
+</block>
+<block name="main">
+<div class="row">
+   <div class="col-md-6">
+      <div class="box box-danger">
+         <div class="box-header with-border">
+            <h3 class="box-title">日历</h3>
+            <div class="box-tools pull-right">
+               <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+               <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+            </div>
+         </div>
+         <div class="box-body">
+            <div id="calendar" style="width: 100%"></div>
+         </div>
+      <!-- /.box-body -->
+      </div>
+   </div>
+   <div class="col-md-6">
+      <div class="box box-primary">
+         <div class="box-header with-border">
+            <h3 class="box-title">服务器基本信息</h3>
+            <div class="box-tools pull-right">
+               <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+               <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+            </div>
+         </div>
+         <div class="box-body" style="line-height:40px;">
+            <table class="table table-hover">
+                     <tr>
+                        <td>服务器名：<?php echo $_SERVER['SERVER_NAME']; ?></td>
+                        <td>站点目录：<?php echo $_SERVER['DOCUMENT_ROOT']; ?></td>
+                     </tr>
+                     <tr>
+                        <td>Php版本：<?php echo PHP_VERSION; ?></td>
+                        <td>Zend版本：<?php echo zend_version(); ?></td>
+                     </tr>
+                     <tr>
+                        <td>Mysql支持：<?php echo function_exists (mysql_close)?"是":"否"; ?></td>
+                        <td>Mysql版本：</td>
+                     </tr>
+                     <tr>
+                        <td>最大上传限制：<?php echo get_cfg_var ("upload_max_filesize")?get_cfg_var ("upload_max_filesize"):"不允许上传附件"; ?></td>
+                        <td>最大执行时间：<?php echo get_cfg_var("max_execution_time")."秒 "; ?></td>
+                     </tr>
+                     <tr>
+                        <td>服务器操作系统：<?php echo PHP_OS; ?></td>
+                        <td>当前时间：<?php date_default_timezone_set (PRC); echo date("Y-m-d G:i:s"); ?></td>
+                     </tr>
+                  </table>
+         </div>
+      <!-- /.box-body -->
+      </div>
+   </div>
+</div>
+<style type="text/css">
+.chart-legend li{ list-style:none; }
+.chart-legend li span.doughnut-legend-icon{
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    margin-right: 5px;
+}
+</style>
+</block>
+<block name="js">
+<script src="__PUBLIC__/admin/plugins/datepicker/bootstrap-datepicker.js"></script>
+<script language="javascript">
+$(function(){
+   $("#calendar").datepicker();	
+});
+</script>
+</block>

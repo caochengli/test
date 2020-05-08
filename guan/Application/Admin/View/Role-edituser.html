@@ -1,0 +1,197 @@
+<extend name="./Public/admin/index.html"/>
+<block name="css">
+
+</block>
+<block name="main">
+<div class="row">
+   <div class="col-xs-12">
+      <form name="import_form">
+      <div class="nav-tabs-custom">
+         <ul class="nav nav-tabs">
+            <li class="active"><a href="#default" data-toggle="tab">基本信息</a></li>
+            <!-- <li><a href="#TraArea" data-toggle="tab">区域授权</a></li> -->
+         </ul>         
+         <div class="tab-content form-horizontal">            
+            <div class="active tab-pane" id="default">
+               <div class="form-group">
+                  <label for="name" class="col-sm-2 control-label">用户名：</label>
+                  <div class="col-sm-2 col-xs-12">
+                     <input type="text" class="form-control" name="username" id="username" value="{$rs['username']}">
+                  </div>
+               </div>
+               <div class="form-group">
+                  <label for="role" class="col-sm-2 control-label">密码：</label>
+                  <div class="col-sm-2 col-xs-12">
+                     <input type="password" class="form-control" name="password" id="password" value="{$rs['password']}">
+                  </div>
+               </div>
+               <div class="form-group">
+                  <label for="pid" class="col-sm-2 control-label">组别：</label>
+                  <div class="col-sm-2 col-xs-12">
+                     <select name="groupid" id="groupid" class="form-control">
+                        <volist name='grouparr' id='rscate'>
+                        <option value="{$rscate.id}" <if condition="$rscate['id'] eq $rs['groupid']">selected='selected'</if>>{$rscate.name}</option>
+                        </volist>
+                     </select>
+                  </div>                
+               </div>
+               <div class="form-group">
+                  <label for="taxis" class="col-sm-2 control-label">排序：</label>
+                  <div class="col-sm-2 col-xs-12">
+                     <input type="text" class="form-control" name="taxis" id="taxis" value="{$rs['taxis']}">
+                  </div>
+               </div>
+               <div class="form-group">
+                  <label for="islock" class="col-sm-2 control-label">属性：</label>
+                  <div class="col-sm-2 col-xs-12">
+                     <select name="islock" class="form-control" id="islock">                      
+                        <option value="1" <if condition="$rs['islock'] eq 1">selected='selected'</if>>正常</option>
+                        <option value="0" <if condition="$rs['islock'] eq 0">selected='selected'</if>>禁止登陆</option>
+                     </select>
+                  </div>
+               </div>
+            </div>
+            <div class="tab-pane" id="TraArea">
+               <div class="form-group">
+                  <div class="col-sm-10 col-sm-offset-2" id="regionCell">
+                     {$regstr}        
+                  </div>
+               </div>
+               <div class="form-group">
+                  <label for="name" class="col-sm-2 col-xs-12 control-label">授权商圈：</label>
+                  <div class="col-sm-1 col-xs-3 npd">
+                     <select name="province" id="selProvinces" size="10" onchange="changedregion(this, 2, 'selCities')">
+                        <option value="0">--请选择--</option>
+                     </select>
+                  </div>
+                  <div class="col-sm-1 col-xs-3 npd">
+                     <select name="city" id="selCities" size="10" onchange="changedregion(this, 3, 'selDistricts')">
+                        <option value="0">--请选择--</option>
+                     </select>
+                  </div>
+                  <div class="col-sm-1 col-xs-3 npd">
+                     <select name="district" id="selDistricts" size="10" onchange="changedregion(this, 4, 'selArea')">
+                        <option value="0">--请选择--</option>
+                     </select>
+                  </div>
+                  <div class="col-sm-1 col-xs-3 npd">
+                     <select name="area" id="selArea" size="10">
+                        <option value="0">--请选择--</option>
+                     </select>
+                  </div>
+               </div>
+               <div class="form-group">
+                  <div class="col-sm-10 col-sm-offset-2"><a href="javascript:void(0);" class="btn btn-info setregion"><i class="fa fa-plus"></i></a></div>
+               </div>
+            </div>             
+         </div>         
+      </div>
+      </form> 
+      <div class="clearfix"><button type="button" class="btn btn-info btn-sub-fm"> <i class="icon-ok bigger-110"></i>确认添加</button></div>  
+   </div>
+   <!-- /.col -->
+</div>
+</block>
+<block name="js">
+<script language="javascript">
+function changedregion(obj,type,apid){
+   var the = $(obj);
+   var id = the.val();
+   //alert(parent);
+   $.ajax({
+      url : "{:U('/Region/get_regions/type/"+type+"/parent/"+id+"')}",
+	  type : "POST",
+	  success : function(data){
+	     //alert(data);
+		 data = '<option value=0 selected=selected>--请选择--</option>'+data
+		 $('#'+apid).empty().append(data);
+	  }
+   });
+}
+$(function(){
+   
+   $('.btn-sub-fm').click(function(){
+      //var name = $.trim($('#username').val());
+	  var pwd = $.trim($('#password').val());
+	  var gid = $.trim($('#groupid').val());
+	  var taxis = $.trim($('#taxis').val());
+	  var islock = $.trim($('#islock').val());
+	  
+	  if(pwd == ""){
+	     $.fn.tips({type:'ok',content:'密码不可为空'});
+		 $('#password').focus();
+		 return false;
+	  }
+	  
+	  $.ajax({
+		url : "{:U('/Role/updateuser',array('id'=>$rs['id']))}",
+		type : "POST",
+		data : {"password":pwd,"groupid":gid,"taxis":taxis,"islock":islock},
+		success : function(data){
+		   var d=$.parseJSON(data);
+		   $.fn.tips({type:d.type,content:d.content,url:d.url});
+		}
+	  });
+   });
+   
+   $('.setregion').click(function(){
+        //var selCountry  = document.forms['theForm'].elements['country'];
+		var selProvince = document.forms['import_form'].elements['province'];
+		var selCity     = document.forms['import_form'].elements['city'];
+		var selDistrict = document.forms['import_form'].elements['district'];
+		var selArea = document.forms['import_form'].elements['area'];
+		var regionCell  = document.getElementById("regionCell");
+		if (selArea.selectedIndex > 0)
+		{
+			regionId = selArea.options[selArea.selectedIndex].value;
+			regionName = selArea.options[selArea.selectedIndex].text;
+		}
+		else
+		{
+			if (selDistrict.selectedIndex > 0)
+			{
+				regionId = selDistrict.options[selDistrict.selectedIndex].value;
+				regionName = selDistrict.options[selDistrict.selectedIndex].text;
+			}
+			else
+			{
+				if (selCity.selectedIndex > 0)
+				{
+					regionId = selCity.options[selCity.selectedIndex].value;
+					regionName = selCity.options[selCity.selectedIndex].text;
+				}
+				else
+				{					
+				    if(selProvince.selectedIndex > 0){
+					   regionId = selProvince.options[selProvince.selectedIndex].value;
+					   regionName = selProvince.options[selProvince.selectedIndex].text;
+					}else{
+					   return;
+					}		
+				}
+			}
+		}
+		// 检查该地区是否已经存在
+		exists = false;
+		for (i = 0; i < document.forms['import_form'].elements.length; i++)
+		{
+		  if (document.forms['import_form'].elements[i].type=="checkbox")
+		  {
+			if (document.forms['import_form'].elements[i].value == regionId)
+			{
+			  exists = true;
+			  alert('当前商圈已存在');
+			}
+		  }
+		}
+		// 创建checkbox
+		if (!exists)
+		{
+		  //document.getElementById('regiontips').style.display = 'none';
+		  regionCell.innerHTML += "<input type='checkbox' name='regions[]' value='" + regionId + "' checked='true' /> " + regionName + "&nbsp;&nbsp;";
+		}
+   });
+      
+});
+</script>
+</block>

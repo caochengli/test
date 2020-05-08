@@ -1,0 +1,105 @@
+<extend name="./Public/home/index.html"/>
+<block name="onecss">
+    <link href="__PUBLIC__/home/css/contact.css" rel="stylesheet" type="text/css">
+</block>
+<block name="main">
+    <include file="Public/banner" />
+    <section class="applets-box">
+        <article class="container-box">
+            <div class="list clearfix">
+                <aside class="item pull-left trans">
+                    <div class="cont">
+                        <div class="icon">&#xe61d;</div>
+                        <div class="tit">影视制作</div>
+                        <div class="com">电影、电视剧、网络大电影、网络剧、微电影、广告、纪录片、MV、宣传片的前期制作和后期剪辑调色特效。</div>
+                    </div>
+                </aside>
+                <aside class="item pull-left trans">
+                    <div class="cont">
+                        <div class="icon">&#xe608;</div>
+                        <div class="tit">专访纪录片</div>
+                        <div class="com">纪录片运用丰富的现实形象素材，通过镜头传达企业的主体意识和目的，结合群众生活关心的事件和话题，实现和大众的心理情感交流，有助于传达企业的核心理念。</div>
+                    </div>
+                </aside>
+                <aside class="item pull-left trans">
+                    <div class="cont">
+                        <div class="icon">&#xe607;</div>
+                        <div class="tit">器材租赁</div>
+                        <div class="com">F55、BMPC、FS7、Sony PL口镜头、三洋EF口镜头、监视器、斯坦尼康、轨道、摇臂、航拍无人机、镝灯、kino等影视器材租赁。</div>
+                    </div>
+                </aside>
+                <aside class="item pull-left trans">
+                    <div class="cont">
+                        <div class="icon">&#xe629;</div>
+                        <div class="tit">影视培训</div>
+                        <div class="com">摄影摄像，影视表演，影视后期剪辑、调色，特效培训，针对不同级别、不同需求的学员开展线上、线下两种形式的培训课程。</div>
+                    </div>
+                </aside>
+            </div>
+        </article>
+    </section>
+
+    <section class="case-box">
+        <article class="container-box">
+            <div class="title">相关案例</div>
+            <div class="list">
+                <div class="row">
+
+                    <div class="col-md-4 col-sm-6" v-for="(item, index) in articleList">
+                        <a :href="item.links" :title="item.title" target="_blank" class="bok item">
+                            <div class="image">
+                                <img :src="item.defaultpic" :alt="item.tags" class="img-responsive">
+                            </div>
+                            <div class="com trans">
+                                <div class="tit">{{item.title}}</div>
+                                <div class="idea">{{item.tags}}</div>
+                            </div>
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+        </article>
+    </section>
+    <script language="JavaScript">
+        var jwvue = new Vue({
+            el: '#appRoot',
+            data: {
+                cateId: 151,
+                articleList: [],
+                status: 0,
+                page: 1,
+                pageSize: 6
+            },
+            methods: {
+                getArticleList: function(){
+                    if(this.status == 1){
+                        return false;
+                    }
+                    this.status = 1;
+                    $.ajax({
+                        'url': '/index.php/Help/getArticleUserAjax',
+                        'type': 'POST',
+                        'data': {
+                            'cateid': this.cateId,
+                            'page': this.page,
+                            'pagesize': this.pageSize
+                        },
+                        'success': function(res){
+                            if(res.length == 0){
+                                jwvue.$data.pageMax = true;
+                            }else{
+                                jwvue.$data.page += 1;
+                                jwvue.$data.articleList = jwvue.$data.articleList.concat(res);
+                            }
+                            jwvue.$data.status = 0;
+                        }
+                    });
+                }
+            },
+            created: function(){
+                this.getArticleList();
+            }
+        });
+    </script>
+</block>

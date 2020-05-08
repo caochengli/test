@@ -1,0 +1,97 @@
+<extend name="./Public/home/index.html"/>
+<block name="onecss">
+    <link href="__PUBLIC__/home/css/news.css" rel="stylesheet" type="text/css">
+</block>
+<block name="main">
+
+    <style type="text/css">
+        .container-box:after{
+            top: 0 !important;
+        }
+    </style>
+    
+    <include file="Public/banner" />
+    <section class="case-box">
+        <article class="container-box">
+            <div class="case-nav">
+                <a href="/{$pageArr['dirname']}/index.html">全部动态<span></span></a>
+                <volist name="navbar[$grandid]['submenu']" id="rs">
+                    <a href="/{$rs['dirname']}/index.html" <if condition="$rs['id'] eq $focusid">class="on"</if>>{$rs['catename']}<span></span></a>
+                </volist>
+            </div>
+        </article>
+    </section>
+    <section class="news-box">
+        <article class="container-box">
+            <div class="newsList row">
+                <volist name="list" id="rs">
+                <a href="{$rs['links']}" title="{$rs['title']}" class="item bok col-md-4 col-sm-6 col-xs-12">
+                    <div class="content">
+                        <div class="image"><img src="{$rs['defaultpic']}" class="img-responsive trans"></div>
+                        <div class="cont">
+                            <div class="title ellip">{$rs['title']}</div>
+                            <div class="com">{$rs['shortcontent']}</div>
+                            <div class="time">{$rs['addtime']|strtotime|date='Y年m月d日',###}</div>
+                            <div class="line trans"></div>
+                        </div>
+                    </div>
+                </a>
+                </volist>
+                <a :href="item.links" :title="item.title" class="item bok col-md-4 col-sm-6 col-xs-12" v-for="(item, index) in articleList">
+                    <div class="content">
+                        <div class="image"><img :src="item.defaultpic" class="img-responsive trans"></div>
+                        <div class="cont">
+                            <div class="title ellip">{{item.title}}</div>
+                            <div class="com">{{item.shortcontent}}</div>
+                            <div class="time">{{item.addtime}}</div>
+                            <div class="line trans"></div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="clearfix" v-if="!pageMax">
+                <a @click="getArticleList" class="loadMore bok f-eng trans">LOAD MORE</a>
+            </div>
+            <div class="clearfix text-center f-s co-deep-gray pad" v-else>—— <span class="co-gray">没有更多内容了</span> ——</div>
+        </article>
+    </section>
+    <script language="JavaScript">
+        var jwvue = new Vue({
+            el: '#appRoot',
+            data: {
+                cateId: "{$focusid}",
+                articleList: [],
+                status: 0,
+                page: 2,
+                pageSize: "{$pageArr['pagesize']}",
+                pageMax: false
+            },
+            methods: {
+                getArticleList: function(){
+                    if(this.status == 1){
+                        return false;
+                    }
+                    this.status = 1;
+                    $.ajax({
+                        'url': '/index.php/Help/getArticleUserAjax',
+                        'type': 'POST',
+                        'data': {
+                            'cateid': this.cateId,
+                            'page': this.page,
+                            'pagesize': this.pageSize
+                        },
+                        'success': function(res){
+                            if(res.length == 0){
+                                jwvue.$data.pageMax = true;
+                            }else{
+                                jwvue.$data.page += 1;
+                                jwvue.$data.articleList = jwvue.$data.articleList.concat(res);
+                            }
+                            jwvue.$data.status = 0;
+                        }
+                    });
+                }
+            }
+        });
+    </script>
+</block>

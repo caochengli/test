@@ -1,0 +1,228 @@
+<extend name="./Public/admin/index.html"/>
+<block name="css">
+
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/admin/plugins/zTreeStyle/zTreeStyle.css" />
+<link rel="stylesheet" href="__PUBLIC__/admin/dist/css/jquery-ui-1.10.3.full.min.css" />
+</block>
+<block name="main">
+<div class="row">
+        <div class="col-xs-12">
+          <div class="box box-danger">
+            <div class="box-header with-border">                
+                <a class="btn btn-success btn-sm btn-sub-taxis" href="javascript:void(0);"><i class="fa fa-sort-alpha-desc"></i> 更新排序</a> <a class="btn btn-info btn-sm" href="{:U('/Role/addusergroup')}"><i class="fa fa-plus"></i> 添加用户组</a>
+             </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+             <div class="table-responsive">  
+             <table id="sample-table-1" class="table table-striped table-bordered table-hover">
+                <thead>
+                   <tr>
+                      <th class="text-center" width="60">排序</th>
+                      <th>组名</th>
+                      <th>描述</th>
+                      <th class="text-center">权限</th>
+                      <th class="text-center">操作</th>
+                   </tr>
+                </thead>
+                <tbody>
+                   <volist name='usergrouparr' id='rs'>
+                   <tr>
+                      <td class="text-center">
+                         <input class="input-mini text-center" size="4" value="{$rs.taxis}" data-id="{$rs.id}" type="text" name="fortaxis">
+                      </td>
+                      <td>{$rs.name}</td>
+                      <td class="text-muted">{$rs.desc}</td>
+                      <td class="text-center">
+                         
+                            <a class="btn btn-xs btn-info set-pagelevel" href="javascript:void(0);" data-group-id="{$rs.id}">
+                               <i class="fa fa-edit"></i> 页面权限
+                            </a>
+                            <a class="btn btn-xs btn-primary set-catearr" href="javascript:void(0);" data-group-id="{$rs.id}">
+                               <i class="fa fa-edit"></i> 栏目权限
+                            </a>
+                         
+                      </td>
+                      <td class="text-center">
+                        
+                            <a class="btn btn-xs btn-info" href="{:U('/Role/editusergroup',array('id'=>$rs['id']))}">
+                               <i class="fa fa-edit"></i> 编辑
+                            </a>
+                            <a class="btn btn-xs btn-danger" href="javascript:del({$rs.id});">
+                               <i class="fa fa-trash"></i> 删除
+                            </a>
+                         
+                      </td>
+                   </tr>
+                   </volist>
+                </tbody>
+             </table>
+             </div>
+            </div>
+            <!-- /.box-body -->
+          </div>
+        </div>
+        <!-- /.col -->
+      </div>
+<div class="hide dialog-message" style="background:#FFF;">     
+     <div class="row">
+        <div class="col-xs-12">
+           <ul id="tree" class="ztree"></ul>
+        </div>
+     </div>
+</div>      
+</block>
+<block name="js">
+<script src="__PUBLIC__/admin/plugins/jQueryUI/jquery-ui-1.10.3.full.min.js"></script>
+<script language="javascript" src="__PUBLIC__/admin/plugins/zTreeStyle/jquery.ztree.core-3.5.min.js"></script>
+<script language="javascript" src="__PUBLIC__/admin/plugins/zTreeStyle/jquery.ztree.excheck-3.5.min.js"></script>
+<script language="javascript">
+var setting={check:{enable:true},data:{simpleData:{enable:true}}};
+function del(id){
+   var url = "{:U('/Role/delete/id/"+id+"/tabel/admin_group/back/usergroup')}";
+   //url += '/id/'+id;
+   $.ajax({
+	 url : url,
+	 type : "GET", 
+	 success : function(data){
+	    var d=$.parseJSON(data);
+		$.fn.tips({type:d.type,content:d.content,url:d.url});
+	 }  
+   });
+}
+$(function(){
+   $('.btn-sub-taxis').click(function(){
+      var chk_value =Array();
+	  var tax_value = Array();
+	  $("input[name='fortaxis']").each(function(){
+		 chk_value.push($(this).attr('data-id'));
+		 tax_value.push($(this).val());
+	  });
+	  $.ajax({
+			 url: "{:U('/Role/updatetaxis',array('tabel'=>'admin_group','back'=>'usergroup'))}", 
+			 type: "POST",
+			 data:{idarray:chk_value,taxisArray:tax_value},
+			 //dataType: "json",
+			 error: function(){  
+				 $.fn.tips({type:"error",content:"更新排序失败!"}); 
+			 },  
+			 success: function(data,status){
+				 var d=$.parseJSON(data);
+				 $.fn.tips({type:d.type,content:d.content,url:d.url});				 
+			 }
+      });
+   });	
+   
+   $.widget("ui.dialog", $.extend({}, $.ui.dialog.prototype, {
+	   _title: function(title) {
+		   var $title = this.options.title || '&nbsp;'
+		   if( ("title_html" in this.options) && this.options.title_html == true )
+		   title.html($title);
+		   else title.text($title);
+	   }
+   }));
+   
+   $('.set-pagelevel').click(function(){
+      //$.fn.zTree.init($("#tree"),setting,zNodes);
+	  var g = $(this).attr('data-group-id');
+	  $.ajax({
+	     url : "{:U('/Role/getpowerjson/groupid/"+g+"')}",
+		 type : 'POST',
+		 success: function(d){
+		    if(!!d){
+			   zNodes = $.parseJSON(d);
+			   $.fn.zTree.init($("#tree"),setting,zNodes);
+			   opendialog('页面权限编辑','icon-edit','dialog-message',g);
+			}
+		 }
+	  });
+   });
+   
+   $('.set-catearr').click(function(){
+      //$.fn.zTree.init($("#tree"),setting,zNodes);
+	  var g = $(this).attr('data-group-id');
+	  $.ajax({
+	     url : "{:U('/Role/getcatejson/groupid/"+g+"')}",
+		 type : 'POST',
+		 success: function(d){
+		    if(!!d){
+			   zNodes = $.parseJSON(d);
+			   $.fn.zTree.init($("#tree"),setting,zNodes);
+			   opendialog('栏目权限编辑','icon-lock','dialog-message',g);
+			}
+		 }
+	  });
+   });
+   
+   //存储用户选择权限ID
+   
+   
+});
+function opendialog(title,icon,id,gid){
+   
+   $("."+id).removeClass('hide').dialog({
+      modal: true,
+	  title: "<div class='widget-header widget-header-small'><h4 class='smaller'><i class='"+icon+"'></i> "+title+"</h4></div>",	
+	  title_html: true, 
+	  buttons: [
+		      {
+				  text: "取消编辑",
+				  "class" : "btn btn-default",
+				  click: function() {
+					  $( this ).dialog( "close" );
+				  }
+			  },
+			  {
+				  text: "确定",
+				  "class" : "btn btn-info btn-minier",
+				  click: function() {
+				     //$( this ).dialog( "close" ); 
+					 if(title == '页面权限编辑'){					    
+						savepower($(this),"{:U('/Role/savepagelevel/groupid/"+gid+"')}");
+					 }else{
+						savecatepower($(this),"{:U('/Role/savecatelevel/groupid/"+gid+"')}");
+					 }
+				  } 
+			  }
+	  ]  
+   });  	
+}
+function savepower(the,url){
+   var treeObj = $.fn.zTree.getZTreeObj("tree");
+   var nodes = treeObj.getCheckedNodes(true);
+   var str = "";
+   for(var i=0;i<nodes.length;i++){
+	  if(str==""){str=nodes[i].id}else{str+=","+nodes[i].id}
+   }
+   //alert(str);   
+   $.ajax({
+      url : url,
+	  type : 'POST',
+	  data : {'pagelevel':str},
+	  success : function(data){
+	     var d=$.parseJSON(data);
+		 $.fn.tips({type:d.type,content:d.content});  
+		 the.dialog("close");
+	  }
+   });
+}
+function savecatepower(the,url){
+   var treeObj = $.fn.zTree.getZTreeObj("tree");
+   var nodes = treeObj.getCheckedNodes(true);
+   var str = "";
+   for(var i=0;i<nodes.length;i++){
+	  if(str==""){str=nodes[i].id}else{str+=","+nodes[i].id}
+   }
+   //alert(str);   
+   $.ajax({
+      url : url,
+	  type : 'POST',
+	  data : {'catearr':str},
+	  success : function(data){
+	     var d=$.parseJSON(data);
+		 $.fn.tips({type:d.type,content:d.content});  
+		 the.dialog("close");
+	  }
+   });
+}
+</script>
+</block>

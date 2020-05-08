@@ -1,0 +1,98 @@
+<extend name="./Public/home/index.html"/>
+<block name="main">
+    <include file="Public/banner" />
+    <!--<div class="menu fl wh slow">
+        <div class="container">
+            <foreach name="navbar[$pageArr['grandid']]['submenu']" item="vo">
+                <a href="{$vo['links']}" <if condition="$focusid eq $vo['id']">class="active"</if> title="{$vo['catename']}_{:C('SITE_TITLE')}"><em></em>{$vo['catename']}</a>
+            </foreach>
+        </div>
+    </div>-->
+    <div class="rack fl wh">
+        <div class="container">
+
+            <div class="clearfix contact-box">
+                <div class="ad-box my-map" style="height: 460px;">
+                    <div id="mapContainer"></div>
+                </div>
+                <div class="side-box">
+                    <div class="clearfix t">如何联系我们？</div>
+                    <div class="clearfix sub">若您有合作意向，请通过以下方式联系我们，您给我们多大信任，我们给您多大惊喜！</div>
+                    <div class="clearfix">
+                        <ul>
+                            <foreach name="phoneList" item="vo">
+                            <li><h4>{$vo[0]}</h4>{$vo[1]}</li>
+                            </foreach>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <style>
+
+        .my-map .icon { background: url(http://lbs.amap.com/console/public/show/marker.png) no-repeat; }
+        .my-map .icon-cir { height: 31px; width: 28px; }
+        .my-map .icon-cir-red { background-position: -11px -5px; }
+        .amap-container{height: 100%;}
+    </style>
+    <script src="//webapi.amap.com/maps?v=1.3&key=8325164e247e15eea68b59e89200988b"></script>
+    <script>
+        !function(){
+            var infoWindow, map, level = 14,
+                center = {lng: 116.476211, lat: 39.831319},
+                features = [{type: "Marker", name: "格林世家", desc: "中国领先校服、园服生产厂商<br />胡小姐：13120368077<br />常先生：13341000210<br />李小姐：13269006294", color: "red", icon: "cir", offset: {x: -9, y: -31}, lnglat: {lng: 116.476211, lat: 39.831319}}];
+
+            function loadFeatures(){
+                for(var feature, data, i = 0, len = features.length, j, jl, path; i < len; i++){
+                    data = features[i];
+                    switch(data.type){
+                        case "Marker":
+                            feature = new AMap.Marker({ map: map, position: new AMap.LngLat(data.lnglat.lng, data.lnglat.lat),
+                                zIndex: 3, extData: data, offset: new AMap.Pixel(data.offset.x, data.offset.y), title: data.name,
+                                content: '<div class="icon icon-' + data.icon + ' icon-'+ data.icon +'-' + data.color +'"></div>' });
+                            break;
+                        case "Polyline":
+                            for(j = 0, jl = data.lnglat.length, path = []; j < jl; j++){
+                                path.push(new AMap.LngLat(data.lnglat[j].lng, data.lnglat[j].lat));
+                            }
+                            feature = new AMap.Polyline({ map: map, path: path, extData: data, zIndex: 2,
+                                strokeWeight: data.strokeWeight, strokeColor: data.strokeColor, strokeOpacity: data.strokeOpacity });
+                            break;
+                        case "Polygon":
+                            for(j = 0, jl = data.lnglat.length, path = []; j < jl; j++){
+                                path.push(new AMap.LngLat(data.lnglat[j].lng, data.lnglat[j].lat));
+                            }
+                            feature = new AMap.Polygon({ map: map, path: path, extData: data, zIndex: 1,
+                                strokeWeight: data.strokeWeight, strokeColor: data.strokeColor, strokeOpacity: data.strokeOpacity,
+                                fillColor: data.fillColor, fillOpacity: data.fillOpacity });
+                            break;
+                        default: feature = null;
+                    }
+                    if(feature){ AMap.event.addListener(feature, "click", mapFeatureClick); }
+                }
+            }
+
+            function mapFeatureClick(e){
+                if(!infoWindow){ infoWindow = new AMap.InfoWindow({autoMove: true}); }
+                var extData = e.target.getExtData();
+                infoWindow.setContent("<h5>" + extData.name + "</h5><div>" + extData.desc + "</div>");
+                infoWindow.open(map, e.lnglat);
+            }
+
+            map = new AMap.Map("mapContainer", {center: new AMap.LngLat(center.lng, center.lat), level: level, keyboardEnable: false, doubleClickZoom: false});
+
+            loadFeatures();
+
+            map.on('complete', function(){
+                map.plugin(["AMap.ToolBar", "AMap.OverView"], function(){
+                    map.addControl(new AMap.ToolBar({ruler: false, direction: false, locate: false}));
+                    map.addControl(new AMap.OverView);
+                });
+            })
+
+        }();
+    </script>
+
+</block>

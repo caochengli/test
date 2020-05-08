@@ -1,0 +1,55 @@
+<extend name="./Public/home/index.html"/>
+<block name="onecss">
+    <link href="__PUBLIC__/home/css/contact.css" rel="stylesheet" type="text/css">
+</block>
+<block name="main">
+    <include file="Public/banner" />
+    <section class="applets-box">
+        <article class="container-box">
+            <div class="list clearfix">
+                <aside class="item pull-left trans">
+                    <div class="cont">
+                        <div class="icon">&#xe611;</div>
+                        <div class="tit">联系地址</div>
+                        <div class="com">
+                            <p>{:C('SITE_WORK_AREA')}</p>
+                            <p>{:C('SITE_WORK_ADDRESS')}</p>
+                        </div>
+                    </div>
+                </aside>
+                <aside class="item pull-left trans">
+                    <div class="cont">
+                        <div class="icon">&#xe610;</div>
+                        <div class="tit">致电策划顾问</div>
+                        <div class="com">
+                            <p>{:C('SITE_WORK_PHONE')}</p>
+                        </div>
+                    </div>
+                </aside>
+                <aside class="item pull-left trans">
+                    <div class="cont">
+                        <div class="icon">&#xe63f;</div>
+                        <div class="tit">邮箱</div>
+                        <div class="com">
+                            <p>{:C('SITE_WORK_EMAIL')}</p>
+                        </div>
+                    </div>
+                </aside>
+                <aside class="item pull-left trans">
+                    <div class="cont">
+                        <div class="icon">&#xe65b;</div>
+                        <div class="tit">在线咨询</div>
+                        <div class="com">
+                            <p>QQ: {:C('SITE_WORK_QQ')}</p>
+                        </div>
+                    </div>
+                </aside>
+            </div>
+        </article>
+    </section>
+    <section class="case-box">
+        <article class="container-box">
+            <a href="https://j.map.baidu.com/xLcXP" target="_blank"><img src="__PUBLIC__/home/images/map.jpg" class="img-responsive"></a>
+        </article>
+    </section>
+</block>

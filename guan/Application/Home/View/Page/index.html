@@ -1,0 +1,24 @@
+<extend name="./Public/home/index.html"/>
+<block name="pagestatic">
+    <link href="__PUBLIC__/home/css/resetcommon.css" rel="stylesheet" type="text/css"/>
+    <link href="__PUBLIC__/home/css/Style.css" rel="stylesheet" type="text/css"/>
+</block>
+<block name="main">
+    <include file="Public/banner" />
+    <div class="content">
+        <include file="Public/categoryabout" />
+        <div class="right">
+            <div class="right_main">
+                <include file="Public/breadnav" />
+                <div class="agent_con">
+                    <div class="age_li_about" id="showstate">
+                        {$pageArr['content']}
+                    </div>
+                    <div class="clear"></div>
+                </div>
+            </div>
+            <div class="clear"></div>
+        </div>
+        <div class="clear"></div>
+    </div>
+</block>

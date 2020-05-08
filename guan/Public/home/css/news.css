@@ -1,0 +1,99 @@
+.news-box .container-box{
+    padding: 40px 0;
+}
+.news-box .container-box .newsList{
+    padding: 0 30px;
+}
+.news-box .container-box .newsList .item{
+    color:#666;
+    margin-top: 20px;
+
+}
+.news-box .container-box .newsList .item .content{
+    border: 1px solid #EBEBEB;
+}
+
+.news-box .container-box .newsList .item .title{
+    font-size: 16px;
+    color:#000;
+    margin: 15px 0;
+}
+.news-box .container-box .newsList .item .cont{
+    padding: 0 15px;
+}
+.news-box .container-box .newsList .item .com{
+    font-size: 12px;
+    line-height: 20px;
+    height: 60px;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    overflow: hidden;
+}
+.news-box .container-box .newsList .item .time{
+    font-size: 12px;
+    padding: 15px 0;
+}
+.news-box .container-box .newsList .item .line{
+    width: 120px;
+    height: 1px;
+    background:#D6D6D6;
+    position: relative;
+    margin-bottom: 15px;
+}
+.news-box .container-box .newsList .item .line:after{
+    position: absolute;
+    content: '';
+    width: 0;
+    height: 0;
+    border-top: 3px solid transparent;
+    border-left: 6px solid #D6D6D6;
+    border-bottom: 3px solid transparent;
+    right:-3px;
+    top:-2px;
+}
+.news-box .container-box .newsList .item .image{
+    position: relative;
+    overflow: hidden;
+}
+.news-box .container-box .newsList .item:hover .image img{
+    -webkit-transform: scale(1.1);
+    -moz-transform: scale(1.1);
+    -ms-transform: scale(1.1);
+    -o-transform: scale(1.1);
+    transform: scale(1.1);
+}
+.news-box .container-box .newsList .item:hover .title{
+    color:#F34443;
+}
+.news-box .container-box .newsList .item:hover .line{
+    width: 160px;
+}
+
+.news-detail .container-box{
+    padding: 30px 0;
+}
+.news-detail .container-box .content{
+    padding: 0 100px;
+}
+.news-detail .container-box .content .title{
+    font-size: 30px;
+    color:#000;
+
+}
+.news-detail .container-box .content .time{
+    font-size: 12px;
+    color:#666;
+    padding: 15px 0;
+    border-bottom: 1px solid #EBEBEB;
+}
+.news-detail .container-box .content .detail-content{
+    padding: 30px 0;
+	line-height:26px;
+	color:#777;
+}
+.news-detail .container-box .content .detail-content img{
+    display: block;
+    max-width: 100%;
+    margin: 0 auto;
+}

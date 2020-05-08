@@ -1,0 +1,314 @@
+<extend name="./Public/home/index.html"/>
+<block name="main">
+    <!--#banner-->
+    <section class="banner swiper-container">
+        <aside class="swiper-wrapper">
+            <volist name="rssup" id="rs">
+            <a href="{$rs['links']}" class="bok swiper-slide"><img src="{$rs['pic']}" class="img-responsive"></a>
+            </volist>
+        </aside>
+        <div class="swiper-pagination"></div>
+        <article class="container-box"></article>
+    </section>
+    <!--#end banner-->
+    <!--#cate-->
+    <section class="cate">
+        <article class="container-box">
+            <div class="pub-title">
+                <div class="title">十年，追求极致的视觉设计与交互体验砥砺前行</div>
+                <div class="com">TEN YEARS, PURSUE THE ULTIMATE VISUAL DESIGN AND INTERACTIVE EXPERIENCE TO ADVANCE.</div>
+            </div>
+            <div class="list clearfix trans">
+                <a class="bok item" href="/serv/h5/index.html">
+                    <div class="cont">
+                        <div class="image trans">
+                            <img src="__PUBLIC__/home/images/itm-1.png" class="img-responsive">
+                            <div class="change-img">
+                                <img src="__PUBLIC__/home/images/itm-1-1.png" class="img-responsive">
+                            </div>
+                        </div>
+                        <div class="text">
+                            <div class="t">响应式网站</div>
+                            <div class="com">WEB</div>
+                        </div>
+                    </div>
+                </a>
+                <a class="bok item" href="/serv/vi/index.html">
+                    <div class="cont">
+                        <div class="image trans">
+                            <img src="__PUBLIC__/home/images/itm-2.png" class="img-responsive">
+                            <div class="change-img">
+                                <img src="__PUBLIC__/home/images/itm-2-2.png" class="img-responsive">
+                            </div>
+                        </div>
+                        <div class="text">
+                            <div class="t">视觉平面</div>
+                            <div class="com">BRAD VI</div>
+                        </div>
+                    </div>
+                </a>
+                <a class="bok item" href="/serv/app/index.html">
+                    <div class="cont">
+                        <div class="image trans">
+                            <img src="__PUBLIC__/home/images/itm-3.png" class="img-responsive">
+                            <div class="change-img">
+                                <img src="__PUBLIC__/home/images/itm-3-3.png" class="img-responsive">
+                            </div>
+                        </div>
+                        <div class="text">
+                            <div class="t">移动端终端设计</div>
+                            <div class="com">MOBILE</div>
+                        </div>
+                    </div>
+                </a>
+                <a class="bok item" href="/serv/applets/index.html">
+                    <div class="cont">
+                        <div class="image trans">
+                            <img src="__PUBLIC__/home/images/itm-4.png" class="img-responsive">
+                            <div class="change-img">
+                                <img src="__PUBLIC__/home/images/itm-4-4.png" class="img-responsive">
+                            </div>
+                        </div>
+                        <div class="text">
+                            <div class="t">微信小程序开发</div>
+                            <div class="com">WECHAT</div>
+                        </div>
+                    </div>
+                </a>
+                <a class="bok item" href="/serv/sale/index.html">
+                    <div class="cont">
+                        <div class="image trans">
+                            <img src="__PUBLIC__/home/images/itm-5.png" class="img-responsive">
+                            <div class="change-img">
+                                <img src="__PUBLIC__/home/images/itm-5-5.png" class="img-responsive">
+                            </div>
+                        </div>
+                        <div class="text">
+                            <div class="t">网络营销</div>
+                            <div class="com">SEO</div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </article>
+    </section>
+    <!--#case-->
+    <section class="case">
+        <article class="container-box">
+            <div class="content trans">
+                <div class="pub-title">
+                    <div class="title">与您分享一些不同的</div>
+                    <div class="com">SHARE SOME DIFFERENT THINGS WITH YOU</div>
+                </div>
+                <div class="case-list">
+                    <aside class="left-case">
+                        <volist name="caselist" id="vo" offset="0" length='1'>
+                        <a class="item bok" href="{$vo['links']}">
+                            <div class="image">
+                                <img src="{$vo['one_pic']}" class="img-responsive">
+                                <div class="cover"></div>
+                            </div>
+                            <div class="com trans">{$vo['title']}</div>
+                        </a>
+                        </volist>
+                    </aside>
+                    <aside class="right-case clearfix">
+                        <volist name="caselist" id="vo" offset="1" length='4'>
+                        <a class="item bok" href="{$vo['links']}">
+                            <div class="image">
+                                <img src="{$vo['defaultpic']}" class="img-responsive">
+                                <div class="cover"></div>
+                            </div>
+                            <div class="com trans">{$vo['title']}</div>
+                        </a>
+                        </volist>
+                    </aside>
+                </div>
+                <a href="/case/index.html" class="loadMore bok f-eng trans">LOAD MORE</a>
+            </div>
+        </article>
+
+    </section>
+    <!--#whatDo-->
+    <section class="whatDo">
+        <article class="container-box">
+            <div class="contents trans">
+                <aside class="nav-box clearfix">
+                    <img src="__PUBLIC__/home/images/icon_1.png">
+                    <ul class="what_nav">
+                        <li><a href="javascript:void(0)" class="act" data-index="1">大客户定制</a></li>
+                        <li><a href="javascript:void(0)" data-index="2">强的流程化管理</a></li>
+                        <li><a href="javascript:void(0)" data-index="3">快速反映机制</a></li>
+                        <li><a href="javascript:void(0)" data-index="4">全方位深入支持</a></li>
+                    </ul>
+                    <a href="##" class="more f-eng pull-right in-line">MORE</a>
+                </aside>
+                <aside class="over">
+                    <div class="bg">
+                        <div class="toggle-box">
+                            <div class="num">
+                                <span class="index">01</span>/<span class="total">04</span>
+                                <div class="toggle-bt">
+                                    <a href="javascript:void(0)" class="prev-btn"><i class="icon">&#xe9ff;</i></a>
+                                    <span><i class="trans"></i></span>
+                                    <a href="javascript:void(0)" class="next-btn"><i class="icon">&#xea00;</i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <ul class="clearfix content trans">
+                        <li class="trans">
+                            <div class="num">01</div>
+                            <div class="image"><img src="__PUBLIC__/home/images/what-1.jpg" class="img-responsive"></div>
+                            <div class="cont">
+                                <div class="tit"><span>大客户定制</span></div>
+                                <div class="com">大客户定制项目，由专业的团队来服务，成立项目组，三次内部头脑风暴，提交两套以上的方案，根据双方拟定时间进度表,完成项</div>
+                            </div>
+                        </li>
+                        <li class="trans">
+                            <div class="num">02</div>
+                            <div class="image"><img src="__PUBLIC__/home/images/what-1.jpg" class="img-responsive"></div>
+                            <div class="cont">
+                                <div class="tit"><span>强的流程化管理</span></div>
+                                <div class="com">大客户定制项目，由专业的团队来服务，成立项目组，三次内部头脑风暴，提交两套以上的方案，根据双方拟定时间进度表,完成项</div>
+                            </div>
+                        </li>
+                        <li class="trans">
+                            <div class="num">03</div>
+                            <div class="image"><img src="__PUBLIC__/home/images/what-1.jpg" class="img-responsive"></div>
+                            <div class="cont">
+                                <div class="tit"><span>快速反映机制</span></div>
+                                <div class="com">大客户定制项目，由专业的团队来服务，成立项目组，三次内部头脑风暴，提交两套以上的方案，根据双方拟定时间进度表,完成项</div>
+                            </div>
+                        </li>
+                        <li class="trans">
+                            <div class="num">04</div>
+                            <div class="image"><img src="__PUBLIC__/home/images/what-1.jpg" class="img-responsive"></div>
+                            <div class="cont">
+                                <div class="tit"><span>全方位深入支持</span></div>
+                                <div class="com">大客户定制项目，由专业的团队来服务，成立项目组，三次内部头脑风暴，提交两套以上的方案，根据双方拟定时间进度表,完成项</div>
+                            </div>
+                        </li>
+                    </ul>
+                </aside>
+            </div>
+        </article>
+    </section>
+    <!--#news-->
+    <section class="news clearfix">
+        <article class="container-box">
+            <aside class="news-list clearfix trans">
+
+                <a class="item bok" :href="item.links" v-for="(item, index) in articleList">
+                    <div class="title ellip bok trans">{{item.title}}</div>
+                    <div class="com">{{item.shortcontent}}</div>
+                    <div class="time">{{item.addtime}}</div>
+                    <div class="line_more trans"></div>
+                </a>
+
+            </aside>
+            <a href="/news/index.html" class="loadMore bok f-eng trans clearfix">LOAD MORE</a>
+        </article>
+    </section>
+    <include file="Public/frbox" />
+    <!--#integrity-->
+    <section class="integrity  clearfix">
+        <article class="container-box">
+            <div class="content clearfix trans">
+                <aside class="rate">
+                    <div class="img-icon pos-ab"><img src="__PUBLIC__/home/images/icon_2.png"></div>
+                    <div class="circle_income">
+                        <div class="pie_left"><div class="left trans"></div></div>
+                        <div class="pie_right"><div class="right trans"></div></div>
+                        <div class="mask">
+                            <div class="percent"><span id="percent">98</span>%</div>
+                            <div class="eng-txt f-eng">REPEAT BUSINESS</div>
+                            <div class="china-txt">回头客户</div>
+                        </div>
+                    </div>
+                    <div class="com f-eng text-center">
+                        OF CLIENTS<br/>
+                        PERCENTAGE OF CLIENTS WHO USE <span class="co-red">US AGAIN</span>
+                    </div>
+                </aside>
+
+                <aside class="num-info">
+                    <div class="contents clearfix">
+                        <div class="item">
+                            <div class="cont">
+                                <div class="num co-red" id="num_1">12</div>
+                                <div class="com">年视觉设计经验</div>
+                                <div class="eng-com f-eng">BRAND IMPETUS OF LISTED ENTERPRISE GROUPS</div>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <div class="cont">
+                                <div class="num co-red" id="num_2">1695</div>
+                                <div class="com">合作客户信心选择<i class="icon pos-ab"></i></div>
+                                <div class="eng-com f-eng">COOPERATIVE CUSTOMER CONFIDENCE</div>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <div class="cont">
+                                <div class="num co-red"><span id="num_3">6</span>大保障</div>
+                                <div class="com">项目完成后提供:设计文件 + 代码 +空间 + 域名 + 售后维护 + 优化培训</div>
+                                <div class="eng-com f-eng">THE SIX SECURITY</div>
+                            </div>
+                        </div>
+                    </div>
+                </aside>
+            </div>
+        </article>
+    </section>
+    <script language="JavaScript">
+        var jwvue = new Vue({
+            el: '#appRoot',
+            data: {
+                cateId: 139,
+                articleList: [],
+                status: 0,
+                page: 1,
+                pageSize: 6
+            },
+            methods: {
+                getArticleList: function(){
+                    if(this.status == 1){
+                        return false;
+                    }
+                    this.status = 1;
+                    $.ajax({
+                        'url': '/index.php/Help/getArticleUserAjax',
+                        'type': 'POST',
+                        'data': {
+                            'cateid': this.cateId,
+                            'page': this.page,
+                            'pagesize': this.pageSize
+                        },
+                        'success': function(res){
+                            if(res.length == 0){
+                                //jwvue.$data.pageMax = true;
+                            }else{
+                                jwvue.$data.page += 1;
+                                jwvue.$data.articleList = jwvue.$data.articleList.concat(res);
+                            }
+                            jwvue.$data.status = 0;
+                        }
+                    });
+                }
+            },
+            created: function(){
+                this.getArticleList();
+            }
+        });
+    </script>
+    <script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?01cf2aac86151ae906ea9461f02a9b31";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+</block>

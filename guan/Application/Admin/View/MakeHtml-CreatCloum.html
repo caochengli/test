@@ -1,0 +1,234 @@
+<extend name="./Public/admin/index.html"/>
+<block name="css">
+
+</block>
+<block name="main">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box box-danger">
+                <div class="pad clearfix">
+                    <div class="row">
+                        <div class="col-xs-4">
+                            <select class="form-control" id="catelist" multiple="multiple" size="20">
+
+                            </select>
+                        </div>
+                        <div class="col-xs-8">
+                            <div class="callout callout-light">
+                                <div>
+                                    <p class="col-xs-3">
+                                        <select class="form-control" name="makeFor" id="makeFor">
+                                            <option value="0">生成电脑端</option>
+                                            <option value="1">生成移动端</option>
+                                        </select>
+                                    </p>
+                                </div>
+                                <div>
+                                    <button class="btn btn-info creat">生成栏目</button>
+                                    <button class="btn btn-primary creat-view">生成内容</button>
+                                    <span class="pad-l-sm">按住“ Ctrl ”键点击栏目名称多选</span>
+                                </div>
+                            </div>
+                            <div class="callout callout-light hidden" id="make-progress">
+                                <!--<div class="clearfix">共8个栏目，正在生成 [ <span>关于我们</span> ]</div>-->
+                                <p>生成进度</p>
+                                <div class="clearfix">
+                                    <div class="progress-group">
+                                        <span class="progress-text">正在生成 [ <i></i> ] </span>
+                                        <span class="progress-number"><b></b> / <i></i></span>
+
+                                        <div class="progress sm">
+                                            <div class="progress-bar progress-bar-green"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="clearfix small" id="creat-state">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</block>
+<block name="js">
+    <script language="javascript">
+        var app = {
+            'cateid': [],
+            'makefor': 0,
+            'state': 0
+        };
+        var doCreat = function(s){
+            var itm = parseInt(s)+1;
+            if(app.cateid.length >= itm){
+                var rs = new Date().getMilliseconds();
+                $.ajax({
+                    url : '/admin.php/MakeHtml/doCreatCloumHtml',
+                    type : 'GET',
+                    data : {
+                        'rand':rs,
+                        'id':app.cateid[s].Id,
+                        'makefor': app.makefor
+                    },
+                    success : function(res){
+                        var cs = '';
+                        if(parseInt(res.bytes)>0){
+                            cs = '<p>栏目 [ '+app.cateid[s].Text+' ] 生成成功<a href="'+res.links+'" class="pull-right text-muted" target="_blank">'+res.links+'('+res.p+')</a></p>';
+                        }else{
+                            if(res.type === 'links'){
+                                cs = '<p class="text-aqua">栏目 [ '+app.cateid[s].Text+' ] 为链接栏目</p>';
+                            }else{
+                                cs = '<p class="text-red">栏目 [ '+app.cateid[s].Text+' ] 生成失败</p>';
+                            }
+                        }
+                        $('#creat-state').append(cs);
+                        setView(itm);
+                        doCreat(itm);
+                    },
+                    error : function(){
+                        $.fn.tips({'type': 'error', 'content': '程序原因，生成失败'});
+                        app.state = 0;
+                    }
+                });
+            }else{
+                $('#make-progress .progress-text').html('所选栏目生成完毕');
+                app.state = 0;
+            }
+        };
+        var doCreatView = function(s){
+            var itm = parseInt(s)+1;
+            if(app.cateid.length >= itm){
+                var rs = new Date().getMilliseconds();
+                $.ajax({
+                    url : '/admin.php/MakeHtml/doCreatViewHtml',
+                    type : 'GET',
+                    data : {
+                        'rand':rs,
+                        'id':app.cateid[s].Id,
+                        'makefor': app.makefor
+                    },
+                    success : function(res){
+                        var cs = '';
+                        if(parseInt(res.bytes)>0){
+                            cs = '<p>栏目 [ '+app.cateid[s].Text+' ] 内容生成成功<span class="pull-right text-muted" target="_blank">'+res.p+'条</span></p>';
+                        }else{
+                            if(res.type === 'emp'){
+                                cs = '<p class="text-aqua">栏目 [ '+app.cateid[s].Text+' ] 无内容需要生成</p>';
+                            }else{
+                                cs = '<p class="text-muted">栏目 [ '+app.cateid[s].Text+' ] 内容生成失败</p>';
+                            }
+                        }
+                        $('#creat-state').append(cs);
+                        setView(itm);
+                        doCreatView(itm);
+                        //console.log(itm);
+                    },
+                    error : function(){
+                        $.fn.tips({'type': 'error', 'content': '程序原因，生成失败'});
+                        app.state = 0;
+                    }
+                });
+            }else{
+                $('#make-progress .progress-text').html('所选栏目生成完毕');
+                app.state = 0;
+            }
+        };
+        var setView = function(s){
+            var maxLen = app.cateid.length;
+            var pers = Math.round(s / maxLen * 10000) / 100.00;
+            //console.log(pers);
+            $('#make-progress .progress-bar').css('width',pers+'%');
+            $('#make-progress .progress-number b').html(s);
+            $('#make-progress .progress-text i').html(app.cateid[s-1].Text);
+        };
+        $(function () {
+            $.get('/admin.php/MakeHtml/loadCateTree',function(res){
+                if(res.length > 0){
+                    var cateTree = '';
+                    for(var i=0;i<res.length;i++){
+                        //app.cateid.push(parseInt(res[i].id));
+                        cateTree = cateTree+'<option value="'+res[i].id+'" data-name="'+res[i].catename+'" data-model="'+res[i].model+'">';
+                        for(var k=0;k<(res[i].level);k++){
+                            cateTree = cateTree+'&nbsp;&nbsp;';
+                        }
+                        for(var k=0;k<res[i].level;k++){
+                            cateTree = cateTree+'∟';
+                        }
+                        cateTree = cateTree+res[i].catename+'</option>';
+                    }
+                    $('#catelist').append(cateTree);
+                }
+            });
+
+            $('#makeFor').change(function(){
+                app.makefor = $(this).val();
+            });
+
+            $('.creat').click(function(){
+                //获取用户选择栏目ID
+                if(app.state === 1){
+                    $.fn.tips({'type': 'error', 'content': '请等待生成完成'});
+                    return false;
+                }
+                app.cateid = [];
+                $("#catelist option").each(function(){
+                    if($(this).prop('selected')){
+                        var obj = {
+                            'Id' : $(this).val(),
+                            'Text' : $(this).attr('data-name')
+                        };
+                        app.cateid.push(obj);
+                    }
+                });
+                //console.log(app.cateid.length);
+                if(app.cateid.length > 0){
+                    //do creatHtml
+                    app.state = 1;
+                    $('#make-progress').removeClass('hidden');
+                    $('#make-progress .progress-number b').html('0');
+                    $('#make-progress .progress-number i').html(app.cateid.length);
+                    $('#make-progress .progress-text').html('正在生成 [ <i></i> ]');
+                    $('#creat-state').html('');
+                    doCreat(0);
+                }else{
+                    $.fn.tips({'type': 'error', 'content': '您未选择任何栏目'});
+                }
+            });
+            $('.creat-view').click(function(){
+                //获取用户选择栏目ID
+                if(app.state === 1){
+                    $.fn.tips({'type': 'error', 'content': '请等待生成完成'});
+                    return false;
+                }
+                app.cateid = [];
+                $("#catelist option").each(function(){
+                    if($(this).prop('selected')){
+                        if(parseInt($(this).attr('data-model')) === 1){
+                            var obj = {
+                                'Id' : $(this).val(),
+                                'Text' : $(this).attr('data-name')
+                            };
+                            app.cateid.push(obj);
+                        }else{
+                            $(this).prop('selected',false);
+                        }
+                    }
+                });
+                //console.log(app.cateid.length);
+                if(app.cateid.length > 0){
+                    //do creatHtml
+                    app.state = 1;
+                    $('#make-progress').removeClass('hidden');
+                    $('#make-progress .progress-number b').html('0');
+                    $('#make-progress .progress-number i').html(app.cateid.length);
+                    $('#make-progress .progress-text').html('正在生成 [ <i></i> ]');
+                    $('#creat-state').html('');
+                    doCreatView(0);
+                }else{
+                    $.fn.tips({'type': 'error', 'content': '您未选择任何栏目'});
+                }
+            });
+        });
+    </script>
+</block>

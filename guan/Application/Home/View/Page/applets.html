@@ -1,0 +1,167 @@
+<extend name="./Public/home/index.html"/>
+<block name="onecss">
+    <link href="__PUBLIC__/home/css/applets.css" rel="stylesheet" type="text/css">
+</block>
+<block name="main">
+    <include file="Public/banner" />
+    <section class="applets-box">
+        <article class="container-box">
+            <div class="list clearfix">
+                <aside class="item pull-left trans">
+                    <div class="cont">
+                        <div class="icon">&#xe619;</div>
+                        <div class="tit">微站小程序</div>
+                        <div class="com">企业及品牌展示型小程序，个性化的创新风格设计，让用户更快了解企业产品及信息，提升企业与品牌形象。适用企业官网、婚纱展示、汽车展示、房产、自媒体等。</div>
+                    </div>
+                </aside>
+                <aside class="item pull-left trans">
+                    <div class="cont">
+                        <div class="icon">&#xe66b;</div>
+                        <div class="tit">购物小程序</div>
+                        <div class="com">个性化购买及营销功能开发，满足不同产品及不同的营销方式定制，直接绑定公众号栏目中，一键点击，无需下载及快速的访问体验，扫描即买，快速提升用户购买下单率。</div>
+                    </div>
+                </aside>
+                <aside class="item pull-left trans">
+                    <div class="cont">
+                        <div class="icon">&#xe605;</div>
+                        <div class="tit">O2O小程序</div>
+                        <div class="com">通过LBS附近门店定位进行一系列消费，助力线下商户畅享微信流量红利，连接更多线下服务与线上用户。 适合酒店餐饮、美容美发、水果生鲜、蛋糕烘焙、娱乐健身等。</div>
+                    </div>
+                </aside>
+                <aside class="item pull-left trans">
+                    <div class="cont">
+                        <div class="icon">&#xe60f;</div>
+                        <div class="tit">微活动定制</div>
+                        <div class="com">品牌及企业H5在微信下的活动传播，根据传播策略个性化定制，包括微信H5游戏开发、微信H5活动、通过视觉设计与程序开发相结合达到传播分享的目的。</div>
+                    </div>
+                </aside>
+            </div>
+        </article>
+    </section>
+    <section class="func-box">
+        <article class="container-box">
+            <div class="bg">
+                <div id="bgs"></div>
+                <div class="content">
+                    <div class="title">
+                        <div class="tit">重点功能</div>
+                        <div class="com">不需要下载安装即可使用，应用无处不在，随时可用</div>
+                    </div>
+                    <div class="list clearfix">
+                        <aside class="item pull-left">
+                            <div class="icon">&#xe602;</div>
+                            <div class="tit">更快获取用户</div>
+                        </aside>
+                        <aside class="item pull-left">
+                            <div class="icon">&#xe61c;</div>
+                            <div class="tit">微信生态营销</div>
+                        </aside>
+                        <aside class="item pull-left">
+                            <div class="icon">&#xe72f;</div>
+                            <div class="tit">技术门槛更低</div>
+                        </aside>
+                        <aside class="item pull-left">
+                            <div class="icon">&#xe774;</div>
+                            <div class="tit">多元的营销手段</div>
+                        </aside>
+                        <aside class="item pull-left">
+                            <div class="icon">&#xe735;</div>
+                            <div class="tit">更少的前期成本</div>
+                        </aside>
+                        <aside class="item pull-left">
+                            <div class="icon">&#xe655;</div>
+                            <div class="tit">用户数据统计留存</div>
+                        </aside>
+                        <aside class="item pull-left">
+                            <div class="icon">&#xe620;</div>
+                            <div class="tit">微信对接免注册</div>
+                        </aside>
+                        <aside class="item pull-left">
+                            <div class="icon">&#xe6c2;</div>
+                            <div class="tit">附近优惠都知道</div>
+                        </aside>
+                        <aside class="item pull-left">
+                            <div class="icon">&#xe728;</div>
+                            <div class="tit">用户体验堪比APP</div>
+                        </aside>
+                        <aside class="item pull-left">
+                            <div class="icon">&#xe62c;</div>
+                            <div class="tit">主动分享玩转社交</div>
+                        </aside>
+                        <aside class="item pull-left">
+                            <div class="icon">&#xe600;</div>
+                            <div class="tit">无推送免打扰</div>
+                        </aside>
+                        <aside class="item pull-left">
+                            <div class="icon">&#xe615;</div>
+                            <div class="tit">更多玩法不断开放中</div>
+                        </aside>
+                    </div>
+                </div>
+            </div>
+        </article>
+    </section>
+    <section class="case-box">
+        <article class="container-box">
+            <div class="title">相关案例</div>
+            <div class="list">
+                <div class="row">
+
+                    <div class="col-md-4 col-sm-6" v-for="(item, index) in articleList">
+                        <a :href="item.links" :title="item.title" target="_blank" class="bok item">
+                            <div class="image">
+                                <img :src="item.defaultpic" :alt="item.tags" class="img-responsive">
+                            </div>
+                            <div class="com trans">
+                                <div class="tit">{{item.title}}</div>
+                                <div class="idea">{{item.tags}}</div>
+                            </div>
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+        </article>
+    </section>
+    <script language="JavaScript">
+        var jwvue = new Vue({
+            el: '#appRoot',
+            data: {
+                cateId: 135,
+                articleList: [],
+                status: 0,
+                page: 1,
+                pageSize: 6
+            },
+            methods: {
+                getArticleList: function(){
+                    if(this.status == 1){
+                        return false;
+                    }
+                    this.status = 1;
+                    $.ajax({
+                        'url': '/index.php/Help/getArticleUserAjax',
+                        'type': 'POST',
+                        'data': {
+                            'cateid': this.cateId,
+                            'page': this.page,
+                            'pagesize': this.pageSize
+                        },
+                        'success': function(res){
+                            if(res.length == 0){
+                                jwvue.$data.pageMax = true;
+                            }else{
+                                jwvue.$data.page += 1;
+                                jwvue.$data.articleList = jwvue.$data.articleList.concat(res);
+                            }
+                            jwvue.$data.status = 0;
+                        }
+                    });
+                }
+            },
+            created: function(){
+                this.getArticleList();
+            }
+        });
+    </script>
+</block>

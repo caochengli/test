@@ -1,0 +1,95 @@
+<extend name="./Public/home/index.html"/>
+<block name="pagestatic">
+    <link href="__PUBLIC__/home/css/resetcommon.css" rel="stylesheet" type="text/css"/>
+    <link href="__PUBLIC__/home/css/Style.css" rel="stylesheet" type="text/css"/>
+</block>
+<block name="main">
+    <include file="Public/banner" />
+    <div class="content">
+        <include file="Public/categoryabout" />
+        <div class="right">
+            <div class="right_main">
+                <include file="Public/breadnav" />
+                <div class="agent_con">
+                    <div class="age_li_about" id="showstate">
+                        <ul class="pagelinks">
+                            <foreach name="navbar" item="vo">
+                                <li>
+                                    <div><a href="{$vo['links']}"><span>{$vo['dirname']}</span>{$vo['catename']}</a></div>
+                                    <if condition="is_array($vo['submenu'])">
+                                        <ul>
+                                            <foreach name="vo['submenu']" item="voo">
+                                                <li>
+                                                    <div><a href="{$voo['links']}"><span>{$voo['dirname']}</span>{$voo['catename']}</a></div>
+                                                    <if condition="is_array($voo['submenu'])">
+                                                        <ul>
+                                                            <foreach name="voo['submenu']" item="vooo">
+                                                                <li>
+                                                                    <div><a href="{$vooo['links']}"><span>{$vooo['dirname']}</span>{$vooo['catename']}</a></div>
+                                                                </li>
+                                                            </foreach>
+                                                        </ul>
+                                                    </if>
+                                                </li>
+                                            </foreach>
+                                        </ul>
+                                    </if>
+                                </li>
+                            </foreach>
+                        </ul>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+            </div>
+            <div class="clear"></div>
+        </div>
+        <div class="clear"></div>
+    </div>
+    <style type="text/css">
+        ul.pagelinks{
+            clear: both;
+            margin: 0;
+            padding: 0;
+        }
+        ul.pagelinks span{
+            float: right;
+        }
+        ul.pagelinks>li{
+            margin: 0;
+            padding: 0;
+            font-size: 16px;
+            list-style: none;
+        }
+        ul.pagelinks>li>div>a{
+            display: block;
+            padding: 10px 0;
+            border-bottom: 1px #D6D6D6 solid;
+        }
+        ul.pagelinks>li>ul{
+            margin: 0;
+            padding: 0 15px;
+        }
+        ul.pagelinks>li>ul>li{
+            padding: 0;
+            font-size: 14px;
+        }
+        ul.pagelinks>li>ul>li>div>a{
+            display: block;
+            padding: 10px 0;
+            border-bottom: 1px #E6E6E6 solid;
+        }
+        ul.pagelinks>li>ul>li>ul{
+            margin: 0;
+            padding: 0 15px;
+        }
+        ul.pagelinks>li>ul>li>ul>li{
+            padding: 0;
+            font-size: 12px;
+        }
+        ul.pagelinks>li>ul>li>ul>li>div>a{
+            display: block;
+            padding: 10px 0;
+            border-bottom: 1px #F6F6F6 solid;
+        }
+    </style>
+</block>

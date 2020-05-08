@@ -1,0 +1,60 @@
+<extend name="./Public/admin/index.html"/>
+<block name="css">
+
+</block>
+<block name="main">
+<div class="row">
+        <div class="col-xs-12">
+          <div class="box box-danger">
+            <div class="box-body pad-v">
+                <form name="import_form" class="form-horizontal" method="post" action="" >
+                     <div class="form-group">
+                        <label for="name" class="col-sm-2 control-label">名称：</label>
+                        <div class="col-sm-2 col-xs-12">
+                           <input type="text" class="form-control" name="name" id="name" value="{$rs['name']}">
+                           <input type="hidden" id="doid" value="{$rs['id']}" />
+                        </div>
+                     </div>
+                     <div class="form-group">
+                        <label for="content" class="col-sm-2 control-label">描述：</label>
+                        <div class="col-sm-4 col-xs-12">
+                           <textarea name="content" id="content" class="form-control">{$rs['content']}</textarea>
+                        </div>
+                     </div>
+                     <div class="form-group form-actions">
+                        <div class="col-sm-10 col-sm-offset-2">
+                           <button type="button" class="btn btn-danger btn-sub-fm"> <i class="icon-ok bigger-110"></i>确认编辑</button>
+                        </div>
+                     </div>
+                </form> 
+            </div>
+            <!-- /.box-body -->
+          </div>
+        </div>
+        <!-- /.col -->
+      </div>
+</block>
+<block name="js">
+<script language="javascript">
+$(function(){
+   $('.btn-sub-fm').click(function(){
+      var name = $.trim($('#name').val());
+	  var content = $.trim($('#content').val());
+	  var doid = $.trim($('#doid').val());
+	  if(name == ""){
+	     $.fn.tips({type:'error',content:'规则名称不可为空'});
+		 $('#name').focus().parents('.form-group').addClass('has-error');
+		 return false;
+	  }
+	  $.ajax({
+		url : "{:U('/Carousel/updategroup')}",
+		type : "POST",
+		data : {"doid":doid,"name":name,"content":content},
+		success : function(d){
+		   $.fn.tips({'type':d.type,'content':d.content,'url':d.url});
+		}
+	  });
+   });
+});
+</script>
+</block>

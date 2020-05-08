@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>{:C('SYS_TITLE')}</title>
+  <!-- Tell the browser to be responsive to screen width -->
+  <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+  <!-- Bootstrap 3.3.6 -->
+  <link rel="stylesheet" href="__PUBLIC__/admin/bootstrap/css/bootstrap.min.css">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="__PUBLIC__/admin/dist/css/font/css/font-awesome.min.css">
+  <!-- Theme style -->
+  <block name="css"></block>
+  <link rel="stylesheet" href="__PUBLIC__/admin/dist/css/AdminLTE.min.css">
+  <!-- AdminLTE Skins. Choose a skin from the css/skins folder instead of downloading all of them to reduce the load. -->
+  <link rel="stylesheet" href="__PUBLIC__/admin/dist/css/skins/_all-skins.min.css">
+  
+  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+  <!--[if lt IE 9]>
+  <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+  <![endif]-->
+</head>
+<body class="hold-transition skin-red-light sidebar-mini">
+<div class="wrapper">
+
+  <header class="main-header">
+    <!-- Logo -->
+    <a href="index2.html" class="logo">
+      <!-- mini logo for sidebar mini 50x50 pixels -->
+      <span class="logo-mini">{:C('SYS_SHORT_TITLE_EN')}</span>
+      <!-- logo for regular state and mobile devices -->
+      <span class="logo-lg">{:C('SYS_SHORT_TITLE')}</span>
+    </a>
+    <!-- Header Navbar: style can be found in header.less -->
+    <nav class="navbar navbar-static-top">
+      <!-- Sidebar toggle button-->
+      <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+        <span class="sr-only"></span>
+      </a>
+
+      <div class="navbar-custom-menu">
+        <ul class="nav navbar-nav">
+          <!-- User Account: style can be found in dropdown.less -->
+          <li class="dropdown user user-menu">
+            <a href="__APP__" class="dropdown-toggle" data-toggle="dropdown">
+              <img src="{:C('SYS_LOGO')}" class="user-image" alt="User Image">
+              <span class="hidden-xs">{$userinfo['username']}</span>
+            </a>
+            <ul class="dropdown-menu">
+              <!-- User image -->
+              <li class="user-header">
+                <img src="{:C('SYS_LOGO')}" class="img-circle" alt="User Image">
+                <p>欢迎您 {$userinfo['username']}<small>当前时间是：{:date('Y-m-d H:i:s')}</small></p>
+              </li>
+            </ul>
+          </li>
+          <!-- Control Sidebar Toggle Button -->
+            <li><a href="javascript:void(0);" data-toggle="control-sidebar" id="clearCache">清空缓存</a></li>
+            <li class="active"><a href="javascript:void(0);" data-toggle="control-sidebar" id="creatIndexHtml">生成首页</a></li>
+            <li><a href="javascript:void(0);" data-toggle="control-sidebar" id="creatSiteMap">SiteMap</a></li>
+          <li>
+            <a href="javascript:void(0);" data-toggle="control-sidebar" class="signout">退出 <i class="fa fa-sign-out"></i></a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </header>
+  <!-- Left side column. contains the logo and sidebar -->
+  <aside class="main-sidebar">
+    <!-- sidebar: style can be found in sidebar.less -->
+    <section class="sidebar">
+      <!-- Sidebar user panel -->
+      <div class="user-panel">
+        <div class="pull-left image">
+          <img src="{:C('SYS_LOGO')}" class="img-circle" alt="User Image">
+        </div>
+        <div class="pull-left info">
+          <p>{$userinfo['username']}</p>
+          <a href="#"><i class="fa fa-circle text-success"></i> 当前在线</a>          
+        </div>
+      </div>
+      <!-- sidebar menu: : style can be found in sidebar.less -->
+      <ul class="sidebar-menu">
+        <li>
+           <a href="__APP__">
+              <i class="fa fa-home"></i> <span>主页</span><span class="pull-right-container"><i class="fa fa-angle-right pull-right"></i></span>
+           </a>
+           <ul class="treeview-menu">
+              <li><a href="__APP__"><i class="fa fa-angle-right"></i> 系统主页</a></li>
+              <li><a href="/index.php" target="_blank"><i class="fa fa-angle-right"></i> 站点主页</a></li>
+           </ul>
+        </li>
+        <volist name="navbar" id="rsnav">
+        <li class="<if condition="$rsnav['role'] eq CONTROLLER_NAME">active<elseif condition="($rsnav['role'] eq 'Content' AND CONTROLLER_NAME eq 'Package')" />active</if> <if condition="is_array($rs['submenu'])">treeview</if>">
+          <a href="{$rsnav['url']}">
+            <i class="fa {$rsnav['icon']}"></i> <span>{$rsnav['name']}</span>
+            <if condition="is_array($rsnav['submenu']) OR $rsnav['isc'] eq 1">
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+            <else />
+            <span class="pull-right-container">
+              <i class="fa fa-angle-right pull-right"></i>
+            </span>
+            </if>
+          </a>
+          <if condition="$rsnav['isc'] eq 1">
+                  <php>$category = setcate($focusid);</php>
+                  <ul class="treeview-menu">
+                     <foreach name="category" item="cates">
+                        <li class="{$cates['cls']}">
+                           <a href="{$cates['url']}">
+                              <i class="fa fa-angle-right"></i> {$cates['name']}                   
+                           </a>
+                           <if condition="is_array($cates[submenu])">
+                              <ul class="treeview-menu">
+                                 <foreach name="cates[submenu]" item="chd">
+                                    <li class="{$chd['cls']}">
+                                       <a href="{$chd['url']}"><i class="fa fa-angle-right"></i> {$chd['name']}</a>
+                                       <if condition="is_array($chd[submenu])">
+                                          <ul class="treeview-menu">
+                                             <foreach name="chd[submenu]" item="chdrs">
+                                                <li class="{$chdrs['cls']}">
+                                                   <a href="{$chdrs['url']}"><i class="fa fa-angle-right"></i> {$chdrs['name']}</a>
+                                                   <if condition="is_array($chdrs[submenu])">
+                                                      <ul class="treeview-menu">
+                                                         <foreach name="chdrs[submenu]" item="noders">
+                                                         <li <if condition="$noders[id] eq $focusid">class="active"</if>>
+                                                            <a href="{$noders['url']}"><i class="fa fa-angle-right"></i> {$noders['name']}</a>
+                                                         </li>
+                                                         </foreach>
+                                                      </ul>
+                                                   </if>
+                                                </li>
+                                             </foreach>
+                                          </ul>
+                                       </if>
+                                    </li>
+                                 </foreach>
+                              </ul>
+                           </if>
+                        </li>
+                     </foreach>
+                  </ul>
+          </if>
+          <if condition="is_array($rsnav['submenu'])">
+              <ul class="treeview-menu">
+                <foreach name="rsnav['submenu']" item="vo">
+                <li class="<if condition="$vo['role'] eq CONTROLLER_NAME.'/'.ACTION_NAME">active</if>"><a href="{$vo['url']}"><i class="fa fa-angle-right"></i> {$vo['name']}</a>
+                    <if condition="is_array($vo['submenu'])">
+                        <ul class="treeview-menu">
+                           <foreach name="vo['submenu']" item="im">
+                           <li><a href="{$im['url']}"><i class="fa fa-angle-right"></i> {$im['name']}</a></li>
+                           </foreach>
+                        </ul>
+                    </if>
+                </li>
+                </foreach>
+              </ul>
+          </if>
+        </li>
+        </volist>
+      </ul>
+    </section>
+    <!-- /.sidebar -->
+  </aside>
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <block name="position"></block>
+    <!-- Main content -->
+    <section class="content">
+       <block name="main"></block>
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+  <footer class="main-footer small">
+    <div class="pull-right hidden-xs">
+      <b>Version</b> 2.3.5
+    </div>
+    Copyright &copy; 2018-2020 <a href="{:C('SYS_COPYRIGHT')}" target="_blank">{:C('SYS_COPYRIGHT')}</a>. All rights reserved.
+  </footer>
+  <!-- Control Sidebar -->
+  <!-- Add the sidebar's background. This div must be placed immediately after the control sidebar -->
+  <div class="control-sidebar-bg"></div>
+</div>
+<!-- ./wrapper -->
+<!-- jQuery 2.2.3 -->
+<script src="__PUBLIC__/admin/plugins/jQuery/jquery-2.2.3.min.js"></script>
+<!-- Bootstrap 3.3.6 -->
+<script src="__PUBLIC__/admin/bootstrap/js/bootstrap.min.js"></script>
+<!-- AdminLTE App -->
+<script type="text/javascript" src="__PUBLIC__/admin/dist/js/ajaxupload.3.5.js"></script>
+<script src="__PUBLIC__/admin/dist/js/common.js"></script>
+<script language="javascript" src="__PUBLIC__/admin/tips/jquery.tips.js"></script>
+<script language="javascript">
+$(function(){
+   $('a.signout').click(function(){
+      $.ajax({
+		url : "{:U('/Login/logout')}",
+		type : "POST",
+		success : function(d){		   
+		   $.fn.tips({type:d.type,content:d.content,url:d.url});
+		}
+	  });
+   });
+    $('#clearCache').click(function(){
+        var the = $(this);
+        $.ajax({
+            url : "/admin.php/Common/clearCache.html",
+            type : "GET",
+            beforeSend: function(){
+                the.html('<img src="/Public/admin/dist/img/loading.gif" width="18">');
+            },success: function(d){
+                if(d){
+                    $.fn.tips({'type':'ok','content':'缓存清空成功','url':''});
+                }else{
+                    $.fn.tips({'type':'error','content':'缓存清空失败','url':''});
+                }
+                the.html('清空缓存');
+            }
+        });
+    });
+    $('#creatIndexHtml').click(function(){
+        $(this).html('<img src="/Public/admin/dist/img/loading.gif" width="16">');
+        $.get('/admin.php/MakeHtml/setIndex',function(res){
+            if(parseInt(res.bytes)>0){
+                $.fn.tips({'type':'ok','content':'生成首页成功'});
+            }else{
+                $.fn.tips({'type':'error','content':'生成首页失败'});
+            }
+            $('#creatIndexHtml').html('生成首页');
+        });
+    });
+    $('#creatSiteMap').click(function(){
+        var the = $(this);
+        $.ajax({
+            url : "/admin.php/Sitemap/index.html",
+            type : "GET",
+            beforeSend: function(){
+                the.html('<img src="/Public/admin/dist/img/loading.gif" width="18">');
+            },success: function(res){
+                if(res.type === 'ok'){
+                    $.fn.tips({'type':'ok','content':'网站地图生成成功','url':''});
+                }else{
+                    $.fn.tips({'type':'error','content':'网站地图生成失败','url':''});
+                }
+                the.html('生成网站地图');
+            }
+        });
+    });
+});
+</script>
+<block name="js"></block>
+<script src="__PUBLIC__/admin/dist/js/app.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,34 @@
+<extend name="./Public/admin/index.html"/>
+<block name="main">
+    <div class="row">
+       <div class="col-xs-12">
+          <?php if(isset($message)) {?>
+          <div class="alert alert-success alert-dismissible">             
+             <h4><i class="icon fa fa-check"></i> 操作成功</h4>
+             <p><?php echo($message); ?></p>
+             <p>系统将在：<b id="wait"><?php echo($waitSecond); ?></b>秒后跳转，<a id="href" href="<?php echo($jumpUrl); ?>">如果你的浏览器没有自动跳转，请点击这里...</a></p>
+          </div>
+          <?php }else{?>
+          <div class="alert alert-danger alert-dismissible">             
+             <h4><i class="icon fa fa-ban"></i> 操作失败</h4>
+             <p><?php echo($error); ?></p>
+             <p>系统将在：<b id="wait"><?php echo($waitSecond); ?></b>秒后跳转，<a id="href" href="<?php echo($jumpUrl); ?>">如果你的浏览器没有自动跳转，请点击这里...</a></p>
+          </div>
+          <?php }?>
+       </div>
+    </div>
+</block>
+<block name="js">
+<script type="text/javascript">
+(function(){
+    var wait = document.getElementById('wait'),href = document.getElementById('href').href;
+    var interval = setInterval(function(){
+    var time = --wait.innerHTML;
+    if(time <= 0) {
+    location.href = href;
+    clearInterval(interval);
+    };
+    }, 1000);
+})();
+</script>
+</block>

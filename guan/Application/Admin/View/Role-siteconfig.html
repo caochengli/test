@@ -1,0 +1,252 @@
+<extend name="./Public/admin/index.html"/>
+<block name="css">
+
+</block>
+<block name="main">
+    <div class="row">
+        <div class="col-xs-12">
+            <form name="import_form" id="import_form" class="form-horizontal" method="post" action="">
+                <div class="nav-tabs-custom">
+                    <ul class="nav nav-tabs">
+                        <li class="active"><a href="#default" data-toggle="tab">基本</a></li>
+                        <li><a href="#other" data-toggle="tab">其它</a></li>
+                    </ul>
+                    <div class="tab-content form-horizontal">
+
+                        <div class="active tab-pane" id="default">
+                            <div class="form-group">
+                                <label for="SITE_TITLE" class="col-sm-2 control-label">站点名称：</label>
+                                <div class="col-sm-4 col-xs-12">
+                                    <input type="text" class="form-control" name="SITE_TITLE" value="{:C('SITE_TITLE')}">
+                                </div>
+                                <div class="pad-t-sm col-sm-6 col-xs-12"></div>
+                            </div>
+                            <div class="form-group">
+                                <label for="SITE_URL" class="col-sm-2 control-label">网址：</label>
+                                <div class="col-sm-4 col-xs-12">
+                                    <input type="text" class="form-control" name="SITE_URL" value="{:C('SITE_URL')}">
+                                </div>
+                                <div class="pad-t-sm col-sm-6 col-xs-12"></div>
+                            </div>
+                            <div class="form-group">
+                                <label for="SITE_KEYWORDS" class="col-sm-2 control-label">关键词：</label>
+                                <div class="col-sm-4 col-xs-12">
+                                    <textarea class="form-control" name="SITE_KEYWORDS">{:C('SITE_KEYWORDS')}</textarea>
+                                </div>
+                                <div class="pad-t-sm col-sm-6 col-xs-12"></div>
+                            </div>
+                            <div class="form-group">
+                                <label for="SITE_DESC" class="col-sm-2 control-label">描述：</label>
+                                <div class="col-sm-4 col-xs-12">
+                                    <textarea class="form-control" name="SITE_DESC">{:C('SITE_DESC')}</textarea>
+                                </div>
+                                <div class="pad-t-sm col-sm-6 col-xs-12"></div>
+                            </div>
+                            <div class="form-group">
+                                <label for="SITE_META_COPYRIGHT" class="col-sm-2 control-label">meta copayright：</label>
+                                <div class="col-sm-4 col-xs-12">
+                                    <textarea class="form-control" name="SITE_META_COPYRIGHT">{:C('SITE_META_COPYRIGHT')}</textarea>
+                                </div>
+                                <div class="pad-t-sm col-sm-6 col-xs-12"></div>
+                            </div>
+                            <div class="form-group">
+                                <label for="SITE_POP_KEYS" class="col-sm-2 control-label">业务概述：</label>
+                                <div class="col-sm-4 col-xs-12">
+                                    <textarea class="form-control" name="SITE_POP_KEYS">{:C('SITE_POP_KEYS')}</textarea>
+                                </div>
+                                <div class="pad-t-sm col-sm-6 col-xs-12"></div>
+                            </div>
+                            <div class="form-group">
+                                <label for="SITE_LOGO" class="col-sm-2 col-xs-12 control-label">Logo：</label>
+                                <div class="col-sm-3 col-xs-8">
+                                    <p><input type="text" class="form-control" name="SITE_LOGO" id="SITE_LOGO"
+                                              value="{:C('SITE_LOGO')}"/></p>
+                                    <p>
+                                        <button type="button" class="btn btn-danger upload_button" id="file_upload_01"
+                                                data-input="SITE_LOGO" data-img="SITE_LOGO_PIC">上传
+                                        </button>
+                                        <i class="pull-right" id="loading" style="display:none;"><img
+                                                src="__PUBLIC__/admin/dist/img/loading.gif"/></i></p>
+                                </div>
+                                <div class="col-sm-1 col-xs-4">
+                                    <img src="{:C('SITE_LOGO')}" id="SITE_LOGO_PIC" class="img-responsive"/>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="SITE_WORK_PHONE" class="col-sm-2 control-label">固定电话：</label>
+                                <div class="col-sm-4 col-xs-12">
+                                    <input type="text" class="form-control" name="SITE_WORK_PHONE" value="{:C('SITE_WORK_PHONE')}">
+                                </div>
+                                <div class="pad-t-sm col-sm-6 col-xs-12"></div>
+                            </div>
+                            <div class="form-group">
+                                <label for="SITE_WORK_AREA" class="col-sm-2 control-label">省市区：</label>
+                                <div class="col-sm-4 col-xs-12">
+                                    <input type="text" class="form-control" name="SITE_WORK_AREA" value="{:C('SITE_WORK_AREA')}">
+                                </div>
+                                <div class="pad-t-sm col-sm-6 col-xs-12"></div>
+                            </div>
+                            <div class="form-group">
+                                <label for="SITE_WORK_ADDRESS" class="col-sm-2 control-label">地址：</label>
+                                <div class="col-sm-4 col-xs-12">
+                                    <textarea class="form-control" name="SITE_WORK_ADDRESS">{:C('SITE_WORK_ADDRESS')}</textarea>
+                                </div>
+                                <div class="pad-t-sm col-sm-6 col-xs-12"></div>
+                            </div>
+                            <div class="form-group">
+                                <label for="SITE_WORK_EMAIL" class="col-sm-2 control-label">邮箱：</label>
+                                <div class="col-sm-4 col-xs-12">
+                                    <input type="text" class="form-control" name="SITE_WORK_EMAIL" value="{:C('SITE_WORK_EMAIL')}">
+                                </div>
+                                <div class="pad-t-sm col-sm-6 col-xs-12"></div>
+                            </div>
+                            <div class="form-group">
+                                <label for="SITE_WORK_QQ" class="col-sm-2 control-label">QQ：</label>
+                                <div class="col-sm-4 col-xs-12">
+                                    <input type="text" class="form-control" name="SITE_WORK_QQ" value="{:C('SITE_WORK_QQ')}">
+                                </div>
+                                <div class="pad-t-sm col-sm-6 col-xs-12"></div>
+                            </div>
+                            <div class="form-group">
+                                <label for="SITE_WORK_QQ_DEV" class="col-sm-2 control-label">QQ(开发咨询)：</label>
+                                <div class="col-sm-4 col-xs-12">
+                                    <input type="text" class="form-control" name="SITE_WORK_QQ_DEV" value="{:C('SITE_WORK_QQ_DEV')}">
+                                </div>
+                                <div class="pad-t-sm col-sm-6 col-xs-12"></div>
+                            </div>
+                            <div class="form-group">
+                                <label for="SITE_WORK_TOUCHMAN" class="col-sm-2 control-label">联系人：</label>
+                                <div class="col-sm-4 col-xs-12">
+                                    <input class="form-control" name="SITE_WORK_TOUCHMAN" value="{:C('SITE_WORK_TOUCHMAN')}">
+                                </div>
+                                <div class="pad-t-sm col-sm-6 col-xs-12"></div>
+                            </div>
+                            <div class="form-group">
+                                <label for="SITE_WX_IMG" class="col-sm-2 col-xs-12 control-label">个人微信：</label>
+                                <div class="col-sm-3 col-xs-8">
+                                    <p><input type="text" class="form-control" name="SITE_WX_IMG" id="SITE_WX_IMG"
+                                              value="{:C('SITE_WX_IMG')}"/></p>
+                                    <p>
+                                        <button type="button" class="btn btn-danger upload_button" id="file_upload_02"
+                                                data-input="SITE_WX_IMG" data-img="SITE_WX_IMG_PIC">上传
+                                        </button>
+                                        <i class="pull-right" id="loading" style="display:none;"><img
+                                                src="__PUBLIC__/admin/dist/img/loading.gif"/></i></p>
+                                    <p>
+                                        <small class="text-muted">建议尺寸：200/200(px)</small>
+                                    </p>
+                                </div>
+                                <div class="col-sm-1 col-xs-4">
+                                    <img src="{:C('SITE_WX_IMG')}" id="SITE_WX_IMG_PIC" class="img-responsive"/>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="SITE_WAP_IMG" class="col-sm-2 col-xs-12 control-label">官方微信：</label>
+                                <div class="col-sm-3 col-xs-8">
+                                    <p><input type="text" class="form-control" name="SITE_WAP_IMG" id="SITE_WAP_IMG"
+                                              value="{:C('SITE_WAP_IMG')}"/></p>
+                                    <p>
+                                        <button type="button" class="btn btn-danger upload_button" id="file_upload_03"
+                                                data-input="SITE_WAP_IMG" data-img="SITE_WAP_IMG_PIC">上传
+                                        </button>
+                                        <i class="pull-right" id="loading" style="display:none;"><img
+                                                src="__PUBLIC__/admin/dist/img/loading.gif"/></i></p>
+                                    <p>
+                                        <small class="text-muted">建议尺寸：200/200(px)</small>
+                                    </p>
+                                </div>
+                                <div class="col-sm-1 col-xs-4">
+                                    <img src="{:C('SITE_WAP_IMG')}" id="SITE_WAP_IMG_PIC" class="img-responsive"/>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="SITE_COPYRIGHT" class="col-sm-2 control-label">版权：</label>
+                                <div class="col-sm-4 col-xs-12">
+                                    <textarea class="form-control" name="SITE_COPYRIGHT">{:C('SITE_COPYRIGHT')}</textarea>
+                                </div>
+                                <div class="pad-t-sm col-sm-6 col-xs-12"></div>
+                            </div>
+                            <div class="form-group">
+                                <label for="SITE_PRE_KEYWORDS" class="col-sm-2 control-label">顶部关键词：</label>
+                                <div class="col-sm-4 col-xs-12">
+                                    <textarea class="form-control" name="SITE_PRE_KEYWORDS">{:C('SITE_PRE_KEYWORDS')}</textarea>
+                                </div>
+                                <div class="pad-t-sm col-sm-6 col-xs-12"></div>
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="other">
+                            <div class="form-group">
+                                <label for="SITE_NOBANNER" class="col-sm-2 col-xs-12 control-label">通栏图片：</label>
+                                <div class="col-sm-3 col-xs-8">
+                                    <p><input type="text" class="form-control" name="SITE_NOBANNER" id="SITE_NOBANNER" value="{:C('SITE_NOBANNER')}"/></p>
+                                    <p>
+                                        <button type="button" class="btn btn-danger upload_button" id="file_upload_09" data-input="SITE_NOBANNER" data-img="SITE_NOBANNER_PIC">上传</button>
+                                        <i class="pull-right" id="loading" style="display:none;"><img src="__PUBLIC__/admin/dist/img/loading.gif"/></i>
+                                    </p>
+                                </div>
+                                <div class="col-sm-1 col-xs-4">
+                                    <img src="{:C('SITE_NOBANNER')}" id="SITE_NOBANNER_PIC" class="img-responsive"/>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="SITE_BREADCUT" class="col-sm-2 control-label">面包屑分割：</label>
+                                <div class="col-sm-1 col-xs-12">
+                                    <input type="text" class="form-control" name="SITE_BREADCUT" value="{:C('SITE_BREADCUT')}">
+                                </div>
+                                <div class="col-sm-9 col-xs-12 lh-set small text-muted">首页 {:C('SITE_BREADCUT')} 关于我们</div>
+                            </div>
+                            <div class="form-group">
+                                <label for="SITE_SHARE_TITLE" class="col-sm-2 control-label">分享标题：</label>
+                                <div class="col-sm-4 col-xs-12">
+                                    <input type="text" class="form-control" name="SITE_SHARE_TITLE" value="{:C('SITE_SHARE_TITLE')}">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="SITE_SHARE_URL" class="col-sm-2 control-label">分享网址：</label>
+                                <div class="col-sm-4 col-xs-12">
+                                    <input type="text" class="form-control" name="SITE_SHARE_URL" value="{:C('SITE_SHARE_URL')}">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="SITE_SHARE_PIC" class="col-sm-2 col-xs-12 control-label">分享图片：</label>
+                                <div class="col-sm-3 col-xs-8">
+                                    <p><input type="text" class="form-control" name="SITE_SHARE_PIC" id="SITE_SHARE_PIC" value="{:C('SITE_SHARE_PIC')}"/></p>
+                                    <p>
+                                        <button type="button" class="btn btn-danger upload_button" id="file_upload_07" data-input="SITE_SHARE_PIC" data-img="SITE_SHARE_PIC_PIC">上传</button>
+                                        <i class="pull-right" id="loading" style="display:none;"><img src="__PUBLIC__/admin/dist/img/loading.gif"/></i>
+                                    </p>
+                                </div>
+                                <div class="col-sm-1 col-xs-4">
+                                    <img src="{:C('SITE_SHARE_PIC')}" id="SITE_SHARE_PIC_PIC" class="img-responsive"/>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="clearfix"><button type="button" class="btn btn-info btn-sub-fm">确认修改</button></div>
+            </form>
+        </div>
+    </div>
+</block>
+<block name="js">
+    <script language="javascript">
+        $(function () {
+            $('.btn-sub-fm').click(function () {
+
+                var data = $("#import_form").serialize();
+                //alert(data);
+                $.ajax({
+                    url: "{:U('/Role/updateconfig')}",
+                    type: "POST",
+                    data: data,
+                    success: function (d) {
+                        var d = $.parseJSON(d);
+                        $.fn.tips({type: d.type, content: d.content, url: d.url});
+                    }
+                });
+
+            });
+        });
+    </script>
+</block>

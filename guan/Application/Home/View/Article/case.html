@@ -1,0 +1,85 @@
+<extend name="./Public/home/index.html"/>
+<block name="main">
+    <include file="Public/banner" />
+    <section class="case-box pad-t">
+        <article class="container-box">
+            <div class="case-nav">
+                <a href="/{$pageArr['dirname']}/index.html">全部案例<span></span></a>
+                <volist name="navbar[$grandid]['submenu']" id="rs">
+                <a href="/{$rs['dirname']}/index.html" <if condition="$rs['id'] eq $focusid">class="on"</if>>{$rs['catename']}<span></span></a>
+                </volist>
+            </div>
+            <div class="list">
+                <div class="row">
+                    <volist name="list" id="rs">
+                    <div class="col-md-4 col-sm-6">
+                        <a href="{$rs['links']}" title="{$rs['title']}" class="bok item">
+                            <div class="image">
+                                <img src="{$rs['defaultpic']}" alt="{$rs['tags']}" class="img-responsive">
+                            </div>
+                            <div class="com trans">
+                                <div class="tit">{$rs['title']}</div>
+                                <div class="idea">{$rs['tags']}</div>
+                            </div>
+                        </a>
+                    </div>
+                    </volist>
+                    <div class="col-md-4 col-sm-6" v-for="(item, index) in articleList">
+                        <a :href="item.links" :title="item.title" class="bok item">
+                            <div class="image">
+                                <img :src="item.defaultpic" :alt="item.tags" class="img-responsive">
+                            </div>
+                            <div class="com trans">
+                                <div class="tit">{{item.title}}</div>
+                                <div class="idea">{{item.tags}}</div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="clearfix" v-if="!pageMax">
+                    <a @click="getArticleList" class="loadMore bok f-eng trans">LOAD MORE</a>
+                </div>
+                <div class="clearfix text-center f-s co-deep-gray pad" v-else>—— <span class="co-gray">没有更多内容了</span> ——</div>
+            </div>
+        </article>
+    </section>
+    <script language="JavaScript">
+        var jwvue = new Vue({
+            el: '#appRoot',
+            data: {
+                cateId: "{$focusid}",
+                articleList: [],
+                status: 0,
+                page: 2,
+                pageSize: "{$pageArr['pagesize']}",
+                pageMax: false
+            },
+            methods: {
+                getArticleList: function(){
+                    if(this.status == 1){
+                        return false;
+                    }
+                    this.status = 1;
+                    $.ajax({
+                        'url': '/index.php/Help/getArticleUserAjax',
+                        'type': 'POST',
+                        'data': {
+                            'cateid': this.cateId,
+                            'page': this.page,
+                            'pagesize': this.pageSize
+                        },
+                        'success': function(res){
+                            if(res.length == 0){
+                                jwvue.$data.pageMax = true;
+                            }else{
+                                jwvue.$data.page += 1;
+                                jwvue.$data.articleList = jwvue.$data.articleList.concat(res);
+                            }
+                            jwvue.$data.status = 0;
+                        }
+                    });
+                }
+            }
+        });
+    </script>
+</block>

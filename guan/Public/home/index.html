@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no" />
+    <title>{$pageArr['seo_title']|seoFun='t',###}</title>
+    <link rel="shortcut icon" type="img/ico" href="__PUBLIC__/home/images/favicon.ico" />
+    <meta name="Keywords" content="{$pageArr['seo_keyword']|seoFun='k',###}">
+    <meta name="description" content="{$pageArr['seo_desc']|seoFun='d',###}"/>
+    <meta name="copyright" content="{:C('SITE_META_COPYRIGHT')}" />
+    <link href="__PUBLIC__/home/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="__PUBLIC__/home/css/swiper.min.css" rel="stylesheet" type="text/css">
+    <link href="__PUBLIC__/home/css/commen.css" rel="stylesheet" type="text/css">
+    <link href="__PUBLIC__/home/css/public.css" rel="stylesheet" type="text/css">
+    <block name="onecss">
+    <link href="__PUBLIC__/home/css/index.css" rel="stylesheet" type="text/css">
+    </block>
+    <link href="__PUBLIC__/home/css/media.css" rel="stylesheet" type="text/css">
+    <script src="__PUBLIC__/home/js/jquery-1.7.2.min.js"></script>
+    <script src="__PUBLIC__/home/js/vue.min.js"></script>
+    <script src="__PUBLIC__/home/js/jquery.appear.min.js"></script>
+    <script src="__PUBLIC__/home/js/swiper.min.js"></script>
+    <script src="__PUBLIC__/home/js/countup.min.js"></script>
+    <script src="__PUBLIC__/home/js/move.js"></script>
+    <script src="__PUBLIC__/home/js/common.js"></script>
+</head>
+<body>
+<!--#header-->
+<header class="top-header">
+    <aside class="logo-area">
+        <a class="logo bok" href="/index.html"></a>
+        <a class="logo1 bok" href="javascript:void(0)"></a>
+    </aside>
+    <article class="container-box">
+        <div class="text-logo pull-left">
+            <a href="/index.html">
+                <img src="__PUBLIC__/home/images/text-logo.png" class="img-responsive">
+            </a>
+        </div>
+        <ul class="nav-list pull-right">
+            <li><a href="/case/index.html">客户案例</a></li>
+            <li><a href="/serv/h5/index.html">响应式网站</a></li>
+            <li><a href="/serv/applets/index.html">微信小程序开发</a></li>
+            <li><a href="/serv/app/index.html">移动端设计</a></li>
+            <li><a href="/serv/vi/index.html">视觉平面</a></li>
+            <li><a href="/serv/video/index.html">影视制作</a></li>
+            <li><a href="/serv/sale/index.html">网络营销</a></li>
+            <li><a href="/about/index.html">公司</a></li>
+            <li><a href="/news/index.html">知识</a></li>
+            <li><a href="/contact/index.html">联系</a></li>
+        </ul>
+    </article>
+    <aside class="wechat-box">
+        <a class="wechat bok" href="javascript:void(0)"></a>
+        <a class="wechat1 bok" href="javascript:void(0)"></a>
+        <span class="trans qrcode">
+            <img src="{:C('SITE_WX_IMG')}" width="100">
+        </span>
+    </aside>
+</header>
+<!--#end header-->
+<section id="appRoot">
+    <block name="main"></block>
+</section>
+<!--#footer form-box-->
+<section class="form-box">
+    <article class="container-box">
+        <div class="content trans">
+            <h1 class="title">填写您的项目需求给我们。</h1>
+            <div class="row fm-area">
+                <aside class="col-md-2">
+                    <input type="text" name="your_name" id="your_name" class="form-control" placeholder="称呼姓名">
+                </aside>
+                <aside class="col-md-2">
+                    <input type="tel" name="your_telno" id="your_telno" class="form-control" placeholder="联系电话">
+                </aside>
+                <aside class="col-md-6">
+                    <input type="text" class="form-control" name="your_content" id="your_content" placeholder="描述你的需求，如网站、微信、APP、电商、平面、影视">
+                </aside>
+                <aside class="col-md-2">
+                    <a href="javascript:void(0)" class="sub-bt dosendmail">提交项目需求</a>
+                </aside>
+            </div>
+            <h5 class="com">*请认真填写需求信息，我们会在24小时内与您取得联系。</h5>
+        </div>
+    </article>
+</section>
+<!--#footer-->
+<footer class="footer">
+    <a name="footer"></a>
+    <article class="container-box">
+        <div class="content trans">
+            <address class="contact-box clearfix">
+                <aside class="item">
+                    <div class="tit">联系地址</div>
+                    <div class="cont">
+                        {:C('SITE_WORK_AREA')}<br/>{:C('SITE_WORK_ADDRESS')}
+                    </div>
+                </aside>
+                <aside class="item">
+                    <div class="tit">致电策划顾问</div>
+                    <div class="cont">
+                        {:C('SITE_WORK_PHONE')}
+                    </div>
+                </aside>
+                <aside class="contact-bt">
+                    <a href="javascript:void(0)" class="trans">
+                        <i class="icon">&#xe613;</i>
+                        <span class="pops trans">
+                            {:C('SITE_WORK_PHONE')}
+                        </span>
+                    </a>
+                    <a href="http://wpa.qq.com/msgrd?v=3&uin={:C('SITE_WORK_QQ')}&site=qq&menu=yes" class="trans" target="_blank">
+                        <i class="icon">&#xe601;</i>
+                        <span class="pops trans">点我聊天</span>
+                    </a>
+                    <a href="javascript:void(0)" class="trans">
+                        <i class="icon">&#xe660;</i>
+                        <span class="pops trans">
+                            <img src="{:C('SITE_WAP_IMG')}" width="100">
+                        </span>
+                    </a>
+                </aside>
+            </address>
+            <div class="ft-btm clearfix">
+                <div class="copyright pull-left">©2018 九五策划 ALL RIGHTS RESERVED. 皖ICP备07001687号　</div>
+                <div class="fr-link pull-right">
+                    <span class="t">友情链接：</span>
+                    <div class="list">
+                        <ul class="cont trans">
+                            <li>
+                                <foreach name="rsfriend" item="vo" key="k">
+                                <a href="{$vo['links']}" title="{$vo['title']}">{$vo['title']}</a>
+                                    <if condition="(($k+1)%5) eq 0"></li><li></if>
+                                </foreach>
+                            </li>
+                        </ul>
+                    </div>
+                    <a href="javascript:void(0)" class="toggle-link"><i class="icon">&#xe6bd;</i></a>
+                </div>
+            </div>
+        </div>
+    </article>
+</footer>
+<!--#dropdown-->
+<a class="dropdown trans" href="javascript:void(0)">
+    <i class="icon trans">&#xe6cb;</i>
+</a>
+<!--#fix-nav mobile-->
+<section class="fix-nav trans">
+    <article class="content">
+        <ul>
+            <li class="logo">
+                <img src="__PUBLIC__/home/images/logo-text.png" class="img-responsive">
+            </li>
+            <li class="act"><a href="/index.html" class="trans">首页</a></li>
+            <li><a href="/case/index.html" class="trans">客户案例</a></li>
+            <li><a href="/serv/h5/index.html" class="trans">响应式网站</a></li>
+            <li><a href="/serv/applets/index.html" class="trans">微信小程序开发</a></li>
+            <li><a href="/serv/app/index.html" class="trans">移动端设计</a></li>
+            <li><a href="/serv/vi/index.html" class="trans">视觉平面</a></li>
+            <li><a href="/serv/video/index.html" class="trans">影视制作</a></li>
+            <li><a href="/serv/sale/index.html" class="trans">网络营销</a></li>
+            <li><a href="/about/index.html" class="trans">公司</a></li>
+            <li><a href="/news/index.html" class="trans">知识</a></li>
+            <li><a href="/contact/index.html" class="trans">联系</a></li>
+            <li class="contact">
+                <a href="tel:0551-65397195" class="trans"><i class="icon">&#xe613;</i></a>
+                <a href="http://wpa.qq.com/msgrd?v=3&uin={:C('SITE_WORK_QQ')}&site=qq&menu=yes" class="trans" target="_blank"><i class="icon">&#xe601;</i></a>
+                <a href="javascript:void(0);" class="trans"><i class="icon">&#xe660;</i></a>
+            </li>
+        </ul>
+        <a class="bok close_nav" href="javascript:void(0)">
+            <i class="icon">&#xe623;</i>
+        </a>
+        <a class="bok mobile_close_nav" href="javascript:void(0)">
+            <i class="icon">&#xe623;</i>
+        </a>
+    </article>
+</section>
+<section class="pop-box trans"></section>
+<!--#mobile header-->
+<section class="mobile-header">
+    <article class="container-box clearfix">
+        <aside class="logo"><img src="__PUBLIC__/home/images/logo-text_1.png" class="img-responsive"></aside>
+        <a href="javascript:void(0)" class="open_munu bok">
+            <i class="icon">&#xe617;</i>
+        </a>
+    </article>
+</section>
+<a class="fix-menu" href="javascript:void(0)">
+    <i class="icon">&#xe617;</i>
+</a>
+<!--servicePopup begin-->
+<div class="servicePopup">
+    <div class="cont">
+        <div class="title">免费咨询服务顾问<br>
+            获得专属《策划方案》及报价详情</div>
+        <div class="keywords">
+            {:C('SITE_POP_KEYS')}
+        </div>
+        <div class="telphone">{:C('SITE_WORK_PHONE')}</div>
+        <div class="btns clearfix">
+            <a target="_blank" class="btn serviceBtn" href="http://wpa.qq.com/msgrd?v=3&uin={:C('SITE_WORK_QQ')}&site=qq&menu=yes">设计咨询</a>
+            <a target="_blank" class="btn serviceBtn" href="http://wpa.qq.com/msgrd?v=3&uin={:C('SITE_WORK_QQ_DEV')}&site=qq&menu=yes">开发咨询</a>
+            <div class="btn closeBtn" onClick="app.closeServicePopup();" >稍后再说</div>
+        </div>
+    </div>
+</div>
+<script src="https://cdn.bootcss.com/jquery.nicescroll/3.7.6/jquery.nicescroll.min.js"></script>
+<script language="JavaScript">
+    $(function(){
+        $('.fix-nav').niceScroll({
+            railoffset: {
+                'left': '40%'
+            }
+        });
+    });
+</script>
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?01cf2aac86151ae906ea9461f02a9b31";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+</body>
+</html>
